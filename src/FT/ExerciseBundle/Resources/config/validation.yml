@@ -1,0 +1,4 @@
+FT\ExerciseBundle\Entity\Exercise:
+    properties:
+        title:
+            - NotBlank: ~

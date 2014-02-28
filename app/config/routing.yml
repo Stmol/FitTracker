@@ -1,0 +1,3 @@
+ft_api:
+    resource: "@FTApiBundle/Resources/config/routing.yml"
+    prefix:   /api/1

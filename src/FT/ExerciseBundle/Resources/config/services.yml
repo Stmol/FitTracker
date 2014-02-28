@@ -1,0 +1,7 @@
+parameters:
+    ft_exercise.manager.exercise.class: FT\ExerciseBundle\Manager\ExerciseManager
+
+services:
+    ft_exercise.manager.exercise:
+        class: %ft_exercise.manager.exercise.class%
+        arguments: [@doctrine.orm.entity_manager]

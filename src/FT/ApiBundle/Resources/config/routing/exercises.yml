@@ -1,0 +1,47 @@
+api_exercises_list:
+    path: /exercises.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:Exercise:list
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_exercises_create:
+    path: /exercises.{_format}
+    methods: [POST]
+    defaults:
+        _controller: FTApiBundle:Exercise:create
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_exercises_read:
+    path: /exercises/{id}.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:Exercise:read
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+
+
+api_exercises_update:
+    path: /exercises/{id}.{_format}
+    methods: [PATCH]
+    defaults:
+        _controller: FTApiBundle:Exercise:update
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+
+
+api_exercises_delete:
+    path: /exercises/{id}.{_format}
+    methods: [DELETE]
+    defaults:
+        _controller: FTApiBundle:Exercise:delete
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+

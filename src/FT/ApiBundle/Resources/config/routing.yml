@@ -1,0 +1,2 @@
+api_exercises:
+    resource: "@FTApiBundle/Resources/config/routing/exercises.yml"
