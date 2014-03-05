@@ -9,7 +9,7 @@
 
 namespace FT\ExerciseBundle\Manager;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use FT\ExerciseBundle\Entity\Exercise;
 
 /**
@@ -17,54 +17,55 @@ use FT\ExerciseBundle\Entity\Exercise;
  * @package FT\ExerciseBundle\Manager
  * @author Yury Smidovich <dev@stmol.me>
  */
-class ExerciseManager
+class ExerciseManager implements EntityManagerInterface
 {
     /**
-     * @var EntityManager
+     * @var ObjectManager
      */
-    protected $entityManager;
+    protected $objectManager;
 
     /**
-     * @param EntityManager $entityManager
+     * @param ObjectManager $objectManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(ObjectManager $objectManager)
     {
-        $this->entityManager = $entityManager;
+        $this->objectManager = $objectManager;
     }
 
-    /**
-     * @return Exercise
-     */
-    public function createExercise()
+    public function create()
     {
-        $exercise = new Exercise();
-
-        return $exercise;
+        return new Exercise();
     }
 
-    /**
-     * @param Exercise $exercise
-     * @param bool $flush
-     */
-    public function saveExercise(Exercise $exercise, $flush = true)
+    public function save($exercise, $flush = true)
     {
-        $this->entityManager->persist($exercise);
+        $this->objectManager->persist($exercise);
 
         if ($flush) {
-            $this->entityManager->flush();
+            $this->objectManager->flush();
         }
     }
 
-    public function getExercise($id)
+    public function delete($exercise)
     {
-        return $this->entityManager
-            ->getRepository('FTExerciseBundle:Exercise')
-            ->findOneById($id);
+        if (!$exercise instanceof Exercise) {
+            throw new \InvalidArgumentException('Entity object must be instance of Exercise');
+        }
+
+        $exercise->setIsEnabled(false);
+        $this->save($exercise);
     }
 
-    public function getExercises($limit = 10, $offset = 0)
+    public function getOneById($id)
     {
-        return $this->entityManager
+        return $this->objectManager
+            ->getRepository('FTExerciseBundle:Exercise')
+            ->find($id);
+    }
+
+    public function getAllLimited($limit, $offset)
+    {
+        return $this->objectManager
             ->getRepository('FTExerciseBundle:Exercise')
             ->findAllLimited($limit, $offset);
     }

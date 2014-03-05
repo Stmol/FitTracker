@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
  * Exercise
  *
  * @ORM\Table(name="exercises")
- * @ORM\Entity(repositoryClass="FT\ExerciseBundle\Entity\ExerciseRepository")
+ * @ORM\Entity(repositoryClass="FT\ExerciseBundle\Entity\Repository\ExerciseRepository")
  *
  * @Serializer\ExclusionPolicy("all")
  */
@@ -57,6 +57,11 @@ class Exercise
     {
         $this->createdAt = new \DateTime();
         $this->isEnabled = true;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace FT\ExerciseBundle\Entity;
+namespace FT\ExerciseBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -21,16 +21,5 @@ class ExerciseRepository extends EntityRepository
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->getResult();
-    }
-
-    public function findOneById($id)
-    {
-        $dql = 'SELECT e FROM FTExerciseBundle:Exercise e
-                WHERE e.id = :id';
-
-        return $this->getEntityManager()
-            ->createQuery($dql)
-            ->setParameter('id', $id)
-            ->getOneOrNullResult();
     }
 }
