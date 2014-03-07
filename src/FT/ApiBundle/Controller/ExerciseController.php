@@ -11,8 +11,6 @@ namespace FT\ApiBundle\Controller;
 
 use FT\ExerciseBundle\Entity\Exercise;
 use FT\ExerciseBundle\Form\ExerciseType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @package FT\ApiBundle\Controller
  * @author Yury Smidovich <dev@stmol.me>
  */
-class ExerciseController extends Controller
+class ExerciseController extends AbstractApiController
 {
     /**
      * Get all exercises
@@ -34,8 +32,8 @@ class ExerciseController extends Controller
         $limit = $request->query->get('limit', 50);
         $offset = $request->query->get('offset', 0);
 
-        $exerciseManager = $this->getExerciseManager();
-        $exercises = $exerciseManager->getExercises($limit, $offset);
+        $exerciseManager = $this->getEntityManager();
+        $exercises = $exerciseManager->getAllLimited($limit, $offset);
 
         $serializer = $this->getSerializer();
         $content = $serializer->serialize($exercises, $request->getRequestFormat());
@@ -51,23 +49,20 @@ class ExerciseController extends Controller
      */
     public function createAction(Request $request)
     {
-        $exerciseManager = $this->getExerciseManager();
-        $exercise = $exerciseManager->createExercise();
-
-        $serializer = $this->getSerializer();
+        $exercise = $this->getEntityManager()->create();
 
         $form = $this->createExerciseForm($exercise);
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            $exerciseManager->saveExercise($exercise);
-            $content = $serializer->serialize($exercise, $request->getRequestFormat());
+            $this->getEntityManager()->save($exercise);
+            $content = $this->getSerializer()->serialize($exercise, $request->getRequestFormat());
 
             return new Response($content, 201);
         }
 
         $errors = $this->getFormErrors($form);
-        $content = $serializer->serialize($errors, $request->getRequestFormat());
+        $content = $this->getSerializer()->serialize($errors, $request->getRequestFormat());
 
         return new Response($content, 400);
     }
@@ -82,15 +77,13 @@ class ExerciseController extends Controller
      */
     public function readAction(Request $request, $id)
     {
-        $exerciseManager = $this->getExerciseManager();
-        $exercise = $exerciseManager->getExercise($id);
+        $exercise = $this->getEntityManager()->getOneById($id);
 
         if (!$exercise instanceof Exercise) {
             throw $this->createNotFoundException('Exercise not found');
         }
 
-        $serializer = $this->getSerializer();
-        $content = $serializer->serialize($exercise, $request->getRequestFormat());
+        $content = $this->getSerializer()->serialize($exercise, $request->getRequestFormat());
 
         return new Response($content);
     }
@@ -105,26 +98,23 @@ class ExerciseController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $exerciseManager = $this->getExerciseManager();
-        $exercise = $exerciseManager->getExercise($id);
+        $exercise = $this->getEntityManager()->getOneById($id);
 
         if (!$exercise instanceof Exercise) {
             throw $this->createNotFoundException('Exercise not found');
         }
 
-        $serializer = $this->getSerializer();
-
         $form = $this->createExerciseForm($exercise);
         $form->submit($request->request->all(), false);
 
         if ($form->isValid()) {
-            $exerciseManager->saveExercise($exercise);
+            $this->getEntityManager()->save($exercise);
 
             return new Response('', 204);
         }
 
         $errors = $this->getFormErrors($form);
-        $content = $serializer->serialize($errors, $request->getRequestFormat());
+        $content = $this->getSerializer()->serialize($errors, $request->getRequestFormat());
 
         return new Response($content, 400);
     }
@@ -138,15 +128,13 @@ class ExerciseController extends Controller
      */
     public function deleteAction($id)
     {
-        $exerciseManager = $this->getExerciseManager();
-        $exercise = $exerciseManager->getExercise($id);
+        $exercise = $this->getEntityManager()->getOneById($id);
 
         if (!$exercise instanceof Exercise) {
             throw $this->createNotFoundException('Exercise not found');
         }
 
-        $exercise->setIsEnabled(false);
-        $exerciseManager->saveExercise($exercise);
+        $this->getEntityManager()->delete($exercise);
 
         return new Response('', 204);
     }
@@ -154,40 +142,9 @@ class ExerciseController extends Controller
     /**
      * @return \FT\ExerciseBundle\Manager\ExerciseManager
      */
-    private function getExerciseManager()
+    protected function getEntityManager()
     {
         return $this->get('ft_exercise.manager.exercise');
-    }
-
-    /**
-     * @return \JMS\Serializer\Serializer
-     */
-    private function getSerializer()
-    {
-        return $this->get('jms_serializer');
-    }
-
-    /**
-     * Parse form errors
-     *
-     * @param FormInterface $form
-     * @return array
-     */
-    private function getFormErrors(FormInterface $form)
-    {
-        $errors = array();
-
-        foreach ($form->getErrors() as $error) {
-            $errors[] = $error->getMessage();
-        }
-
-        foreach ($form->all() as $key => $child) {
-            if ($err = $this->getFormErrors($child)) {
-                $errors[$key] = $err;
-            }
-        }
-
-        return $errors;
     }
 
     /**
