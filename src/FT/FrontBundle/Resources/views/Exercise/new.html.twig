@@ -1,7 +1,7 @@
-{% extends '::base.html.twig' %}
+{% extends 'FTFrontBundle:Exercise:layout.html.twig' %}
 
-{% block body -%}
+{% block content -%}
+  {{ parent() }}
+
   {{ form(form, { 'attr': { 'novalidate': 'novalidate' } }) }}
-
-  <a href="{{ path('exercises') }}">{{ 'exercise.list'|trans }}</a>
 {% endblock %}

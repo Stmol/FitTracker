@@ -1,6 +1,8 @@
-{% extends '::base.html.twig' %}
+{% extends 'FTFrontBundle:Exercise:layout.html.twig' %}
 
-{% block body -%}
+{% block content -%}
+  {{ parent() }}
+
   <a href="{{ path('exercises_new') }}">{{ 'New'|trans }}</a>
 
   {% for exercise in entities if exercise.isEnabled %}

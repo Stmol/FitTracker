@@ -1,14 +1,11 @@
-{% extends '::base.html.twig' %}
+{% extends 'FTFrontBundle:Exercise:layout.html.twig' %}
 
-{% block body -%}
-  <h3>{{ entity.title }}</h3>
+{% block content -%}
+  <h2>{{ entity.title }}</h2>
 
   <ul>
     <li><strong>{{ 'exercise.created_at'|trans }}</strong>: {{ entity.createdAt|date("d F Y") }}</li>
     <li><a href="{{ path('exercises_edit', { 'id': entity.id }) }}">{{ 'Edit'|trans }}</a></li>
     <li>{{ form(delete_form) }}</li>
   </ul>
-
-  <a href="{{ path('exercises') }}">{{ 'exercise.list'|trans }}</a>
-
 {% endblock %}
