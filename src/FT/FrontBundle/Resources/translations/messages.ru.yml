@@ -8,3 +8,9 @@ exercise:
     list: Упражнения
     title: Название
     created_at: Добавлено
+
+workout:
+    list: Тренировки
+    title: Название
+    brief: Описание
+    created_at: Добавлено

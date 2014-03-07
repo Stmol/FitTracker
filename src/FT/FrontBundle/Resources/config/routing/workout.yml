@@ -1,0 +1,49 @@
+workouts:
+    path:  /
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Workout:index"
+
+workouts_new:
+    path:  /new
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Workout:new"
+
+workouts_edit:
+    path:  /{id}/edit
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Workout:edit"
+    requirements:
+        id: \d+
+
+workouts_show:
+    path:  /{id}
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Workout:show"
+    requirements:
+        id: \d+
+
+workouts_create:
+    path:  /
+    methods: [POST]
+    defaults:
+        _controller: "FTFrontBundle:Workout:create"
+
+workouts_update:
+    path:  /{id}
+    methods: [POST, PUT]
+    defaults:
+        _controller: "FTFrontBundle:Workout:update"
+    requirements:
+        id: \d+
+
+workouts_delete:
+    path:  /{id}
+    methods: [POST, DELETE]
+    defaults:
+        _controller: "FTFrontBundle:Workout:delete"
+    requirements:
+        id: \d+

@@ -14,7 +14,7 @@ class WorkoutRepository extends EntityRepository
 {
     public function findAllLimited($limit, $offset)
     {
-        $dql = 'SELECT w FROM FTExerciseBundle:Exercise w';
+        $dql = 'SELECT w FROM FTWorkoutBundle:Workout w';
 
         return $this->getEntityManager()
             ->createQuery($dql)

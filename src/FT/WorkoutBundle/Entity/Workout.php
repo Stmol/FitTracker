@@ -31,7 +31,7 @@ class Workout
     /**
      * @var string
      *
-     * @ORM\Column(name="brief", type="text")
+     * @ORM\Column(name="brief", type="text", nullable=true)
      */
     private $brief;
 

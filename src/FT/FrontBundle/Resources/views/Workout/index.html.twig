@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+  <a href="{{ path('workouts_new') }}">{{ 'New'|trans }}</a>
+
+  {% for workout in entities if workout.isEnabled %}
+    <ul>
+      <li><a href="{{ path('workouts_show', { 'id': workout.id }) }}">{{ workout.title }}</a></li>
+      <li><strong>{{ 'workout.created_at'|trans }}</strong>: {{ workout.createdAt|date('d F Y') }}</li>
+    </ul>
+  {% endfor %}
+{% endblock %}
