@@ -9,7 +9,6 @@
 
 namespace FT\ExerciseBundle\Manager;
 
-
 interface EntityManagerInterface
 {
     public function create();

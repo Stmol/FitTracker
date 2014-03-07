@@ -25,7 +25,7 @@ abstract class AbstractApiController extends Controller
     /**
      * Parse form errors
      *
-     * @param FormInterface $form
+     * @param  FormInterface $form
      * @return array
      */
     protected function getFormErrors(FormInterface $form)
@@ -50,5 +50,5 @@ abstract class AbstractApiController extends Controller
      *
      * @return \FT\ExerciseBundle\Manager\EntityManagerInterface
      */
-    protected abstract function getEntityManager();
+    abstract protected function getEntityManager();
 }

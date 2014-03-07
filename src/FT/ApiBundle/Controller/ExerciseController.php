@@ -24,7 +24,7 @@ class ExerciseController extends AbstractApiController
     /**
      * Get all exercises
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function listAction(Request $request)
@@ -44,7 +44,7 @@ class ExerciseController extends AbstractApiController
     /**
      * Create new exercise
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function createAction(Request $request)
@@ -70,7 +70,7 @@ class ExerciseController extends AbstractApiController
     /**
      * Read exercise
      *
-     * @param Request $request
+     * @param  Request                                                       $request
      * @param $id
      * @return Response
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -91,7 +91,7 @@ class ExerciseController extends AbstractApiController
     /**
      * Update exercise
      *
-     * @param Request $request
+     * @param  Request                                                       $request
      * @param $id
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
@@ -150,7 +150,7 @@ class ExerciseController extends AbstractApiController
     /**
      * Create exercise type form
      *
-     * @param Exercise $exercise
+     * @param  Exercise                     $exercise
      * @return \Symfony\Component\Form\Form
      */
     private function createExerciseForm(Exercise $exercise)

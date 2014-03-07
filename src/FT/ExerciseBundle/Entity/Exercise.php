@@ -67,7 +67,7 @@ class Exercise
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -77,7 +77,7 @@ class Exercise
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string   $title
      * @return Exercise
      */
     public function setTitle($title)
@@ -90,7 +90,7 @@ class Exercise
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -100,7 +100,7 @@ class Exercise
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Exercise
      */
     public function setCreatedAt($createdAt)
@@ -113,7 +113,7 @@ class Exercise
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -123,7 +123,7 @@ class Exercise
     /**
      * Set isEnabled
      *
-     * @param boolean $isEnabled
+     * @param  boolean  $isEnabled
      * @return Exercise
      */
     public function setIsEnabled($isEnabled)
@@ -136,7 +136,7 @@ class Exercise
     /**
      * Get isEnabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsEnabled()
     {
