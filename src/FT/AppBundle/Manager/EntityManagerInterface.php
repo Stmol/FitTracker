@@ -7,7 +7,7 @@
  * Email: dev@stmol.me
  */
 
-namespace FT\ExerciseBundle\Manager;
+namespace FT\AppBundle\Manager;
 
 interface EntityManagerInterface
 {

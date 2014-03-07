@@ -16,10 +16,12 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new \JMS\SerializerBundle\JMSSerializerBundle(),
-            new FT\FrontBundle\FTFrontBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FT\AppBundle\FTAppBundle(),
             new FT\ExerciseBundle\FTExerciseBundle(),
+            new FT\WorkoutBundle\FTWorkoutBundle(),
+            new FT\FrontBundle\FTFrontBundle(),
             new FT\ApiBundle\FTApiBundle(),
         ];
 
