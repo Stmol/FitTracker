@@ -1,0 +1,7 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+  {{ form(form, { 'attr': { 'novalidate': 'novalidate' } }) }}
+
+  <a href="{{ path('exercises') }}">{{ 'exercise.list'|trans }}</a>
+{% endblock %}

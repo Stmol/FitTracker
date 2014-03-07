@@ -1,0 +1,3 @@
+ft_front_exercises:
+    resource: "@FTFrontBundle/Resources/config/routing/exercise.yml"
+    prefix:   /exercises

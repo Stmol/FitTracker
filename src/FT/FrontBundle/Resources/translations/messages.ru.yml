@@ -1,0 +1,10 @@
+New: Добавить
+Сreate: Создать
+Edit: Редактировать
+Update: Сохранить
+Delete: Удалить
+
+exercise:
+    list: Упражнения
+    title: Название
+    created_at: Добавлено

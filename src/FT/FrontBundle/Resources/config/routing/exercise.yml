@@ -1,0 +1,47 @@
+exercises:
+    path:  /
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Exercise:index"
+
+exercises_new:
+    path:  /new
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Exercise:new"
+
+exercises_edit:
+    path:  /{id}/edit
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Exercise:edit"
+
+exercises_create:
+    path:  /
+    methods: [POST]
+    defaults:
+        _controller: "FTFrontBundle:Exercise:create"
+
+exercises_update:
+    path:  /{id}
+    methods: [POST, PUT]
+    defaults:
+        _controller: "FTFrontBundle:Exercise:update"
+    requirements:
+        id: \d+
+
+exercises_delete:
+    path:  /{id}
+    methods: [POST, DELETE]
+    defaults:
+        _controller: "FTFrontBundle:Exercise:delete"
+    requirements:
+        id: \d+
+
+exercises_show:
+    path:  /{id}
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Exercise:show"
+    requirements:
+        id: \d+
