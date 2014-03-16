@@ -1,4 +1,0 @@
-FT\WorkoutBundle\Entity\Workout:
-    properties:
-        title:
-            - NotBlank: ~

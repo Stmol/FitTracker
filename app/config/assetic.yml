@@ -1,0 +1,27 @@
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ FTFrontBundle ]
+    read_from: "%kernel.root_dir%/../web/assets"
+    write_to: "%kernel.root_dir%/../web/assets"
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        less:
+            node: %node_base_path%
+            node_paths: [ %node_modules_path% ]
+            apply_to: "\.less$"
+            compress: false
+    assets:
+        stylesheets:
+            output: "css/app.css"
+            inputs:
+                - "@FTFrontBundle/Resources/public/less/main.less"
+
+        js_vendor:
+            output: "js/vendor.js"
+            inputs:
+                - "%kernel.root_dir%/../bower_components/jquery/dist/jquery.min.js"
+                - "%kernel.root_dir%/../bower_components/underscore/underscore.js"
+                - "%kernel.root_dir%/../bower_components/backbone/backbone.js"

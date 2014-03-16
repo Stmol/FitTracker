@@ -3,7 +3,7 @@
 namespace FT\FrontBundle\Controller;
 
 use FT\ExerciseBundle\Entity\Exercise;
-use FT\ExerciseBundle\Form\ExerciseType;
+use FT\ExerciseBundle\Form\Type\ExerciseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

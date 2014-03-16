@@ -10,7 +10,7 @@
 namespace FT\ApiBundle\Controller;
 
 use FT\ExerciseBundle\Entity\Exercise;
-use FT\ExerciseBundle\Form\ExerciseType;
+use FT\ExerciseBundle\Form\Type\ExerciseType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

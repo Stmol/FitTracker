@@ -1,7 +1,8 @@
 <?php
 
-namespace FT\WorkoutBundle\Form;
+namespace FT\WorkoutBundle\Form\Type;
 
+use FT\ExerciseBundle\Form\Type\ExerciseSetType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -21,6 +22,12 @@ class WorkoutType extends AbstractType
             ->add('brief', 'textarea', [
                 'label' => 'workout.brief'
             ])
+            ->add('exerciseSets', 'collection', [
+                'type'         => new ExerciseSetType(),
+                'allow_delete' => true,
+                'allow_add'    => true,
+                'by_reference' => false,
+            ])
         ;
     }
     
@@ -30,7 +37,7 @@ class WorkoutType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'FT\WorkoutBundle\Entity\Workout'
+            'data_class' => 'FT\WorkoutBundle\Entity\Workout',
         ]);
     }
 
@@ -39,6 +46,6 @@ class WorkoutType extends AbstractType
      */
     public function getName()
     {
-        return 'ft_workoutbundle_workout';
+        return 'workout';
     }
 }

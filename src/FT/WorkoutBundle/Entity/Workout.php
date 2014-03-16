@@ -2,7 +2,11 @@
 
 namespace FT\WorkoutBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FT\ExerciseBundle\Entity\ExerciseSet;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Workout
@@ -25,6 +29,8 @@ class Workout
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -49,8 +55,17 @@ class Workout
      */
     private $isEnabled;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="FT\ExerciseBundle\Entity\ExerciseSet", mappedBy="workout", cascade={"persist"})
+     * @Serializer\SerializedName("sets");
+     */
+    private $exerciseSets;
+
     public function __construct()
     {
+        $this->exerciseSets = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->isEnabled = true;
     }
@@ -155,5 +170,40 @@ class Workout
     public function getIsEnabled()
     {
         return $this->isEnabled;
+    }
+
+    /**
+     * Add exerciseSet
+     *
+     * @param ExerciseSet $exerciseSet
+     * @return Workout
+     */
+    public function addExerciseSet(ExerciseSet $exerciseSet)
+    {
+        $this->exerciseSets->add($exerciseSet);
+        $exerciseSet->setWorkout($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove exerciseSet
+     *
+     * @param \FT\ExerciseBundle\Entity\ExerciseSet $exerciseSet
+     * @param ExerciseSet $exerciseSet
+     */
+    public function removeExerciseSet(ExerciseSet $exerciseSet)
+    {
+        $this->exerciseSets->removeElement($exerciseSet);
+    }
+
+    /**
+     * Get exerciseSets
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExerciseSets()
+    {
+        return $this->exerciseSets;
     }
 }

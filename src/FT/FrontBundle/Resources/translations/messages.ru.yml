@@ -3,14 +3,20 @@ New: Добавить
 Edit: Редактировать
 Update: Сохранить
 Delete: Удалить
+Save: Сохранить
+Cancel: Отмена
 
 exercise:
     list: Упражнения
     title: Название
     created_at: Добавлено
+    add: Добавить упражнения
+    edit: Изменить набор упражнений
+    exist: Доступные упражнения
 
 workout:
     list: Тренировки
     title: Название
     brief: Описание
     created_at: Добавлено
+    exercises: Упражнения

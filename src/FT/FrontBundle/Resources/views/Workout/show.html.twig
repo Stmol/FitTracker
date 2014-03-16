@@ -14,4 +14,18 @@
     <li><a href="{{ path('workouts_edit', { 'id': entity.id }) }}">{{ 'Edit'|trans }}</a></li>
     <li>{{ form(delete_form) }}</li>
   </ul>
+
+  <h2>{{ 'workout.exercises'|trans }}</h2>
+
+  {% if entity.exerciseSets|length < 1 %}
+    <a href="{{ path('workouts_exercises_edit', { 'id': entity.id }) }}">{{ 'exercise.add'|trans }}</a>
+  {% else %}
+    <ul>
+      {% for set in entity.exerciseSets if set.exercise.isEnabled %}
+        <li>{{ set.exercise.title }}</li>
+      {% endfor %}
+    </ul>
+    <a href="{{ path('workouts_exercises_edit', { 'id': entity.id }) }}">{{ 'exercise.edit'|trans }}</a>
+  {% endif %}
+
 {% endblock %}

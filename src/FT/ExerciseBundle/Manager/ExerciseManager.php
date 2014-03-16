@@ -57,6 +57,10 @@ class ExerciseManager implements EntityManagerInterface
         $this->save($exercise);
     }
 
+    /**
+     * @param $id
+     * @return null|Exercise
+     */
     public function getOneById($id)
     {
         return $this->objectManager

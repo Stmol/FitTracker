@@ -48,7 +48,7 @@ abstract class AbstractApiController extends Controller
     /**
      * Get manager for entity
      *
-     * @return \FT\ExerciseBundle\Manager\EntityManagerInterface
+     * @return \FT\AppBundle\Manager\EntityManagerInterface
      */
     abstract protected function getEntityManager();
 }

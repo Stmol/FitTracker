@@ -3,12 +3,18 @@
 <head>
   <meta charset="UTF-8"/>
   <title>{% block title %}Welcome!{% endblock %}</title>
-  {% block stylesheets %}{% endblock %}
+  {% block stylesheets %}
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic&amp;subset=latin,cyrillic"
+          media="screen" rel="stylesheet" type="text/css"/>
+
+    {% stylesheets '@stylesheets' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+  {% endblock %}
   <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
 {% block body %}
-
   {% block menu %}
     <ul>
       <li><a href="{{ path('exercises') }}">{{ 'exercise.list'|trans }}</a></li>
@@ -18,7 +24,12 @@
 
   {% block content '' %}
 
-  {% block javascripts '' %}
+  {% block javascripts %}
+    {#<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>#}
+    {% javascripts '@js_vendor' %}
+      <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+  {% endblock javascripts %}
 {% endblock %}
 </body>
 </html>
