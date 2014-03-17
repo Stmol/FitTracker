@@ -2,6 +2,7 @@
 
 namespace FT\FrontBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FT\ExerciseBundle\Entity\Exercise;
 use FT\ExerciseBundle\Form\Type\ExerciseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -79,8 +80,8 @@ class ExerciseController extends Controller
         $editForm = $this->createEditForm($exercise);
 
         return $this->render('FTFrontBundle:Exercise:edit.html.twig', [
-            'entity'      => $exercise,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $exercise,
+            'form'   => $editForm->createView(),
         ]);
     }
 
@@ -121,9 +122,19 @@ class ExerciseController extends Controller
         }
 
         $editForm = $this->createEditForm($exercise);
-        $editForm->handleRequest($request);
+        $existsExerciseParams = new ArrayCollection();
 
-        if ($editForm->isValid()) {
+        foreach ($exercise->getExerciseParameters() as $parameter) {
+            $existsExerciseParams->add($parameter);
+        }
+
+        if ($editForm->handleRequest($request)->isValid()) {
+            foreach ($existsExerciseParams as $parameter) {
+                if (false === $exercise->getExerciseParameters()->contains($parameter)) {
+                    $this->get('ft_exercise.manager.exercise_parameter')->delete($parameter);
+                }
+            }
+
             $this->getEntityManager()->save($exercise);
 
             return $this->redirect($this->generateUrl('exercises_show', ['id' => $id]));
@@ -131,7 +142,7 @@ class ExerciseController extends Controller
 
         return $this->render('FTFrontBundle:Exercise:edit.html.twig', [
             'entity'    => $exercise,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
         ]);
     }
 
@@ -168,8 +179,8 @@ class ExerciseController extends Controller
     private function createCreateForm(Exercise $entity)
     {
         $form = $this->createForm(new ExerciseType(), $entity, [
-            'action' => $this->generateUrl('exercises_create'),
-            'method' => 'POST',
+            'action'          => $this->generateUrl('exercises_create'),
+            'method'          => 'POST',
         ]);
 
         $form->add('submit', 'submit', ['label' => 'Сreate']);

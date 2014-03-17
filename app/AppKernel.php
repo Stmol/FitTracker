@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
             new FT\AppBundle\FTAppBundle(),
             new FT\ExerciseBundle\FTExerciseBundle(),
             new FT\WorkoutBundle\FTWorkoutBundle(),

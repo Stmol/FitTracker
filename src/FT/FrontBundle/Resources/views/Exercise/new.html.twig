@@ -3,5 +3,46 @@
 {% block content -%}
   {{ parent() }}
 
-  {{ form(form, { 'attr': { 'novalidate': 'novalidate' } }) }}
+  <div id="page">
+    {{ form_start(form, { 'attr': { 'novalidate': 'novalidate' } }) }}
+
+    <div>
+      {{ form_errors(form.title) }}
+      {{ form_label(form.title) }}
+      {{ form_widget(form.title) }}
+    </div>
+
+    <div>
+      {{ form_errors(form.brief) }}
+      {{ form_label(form.brief) }}
+      {{ form_widget(form.brief) }}
+    </div>
+
+    <div>
+      {{ form_errors(form.exerciseParameters) }}
+      {{ form_label(form.exerciseParameters) }}
+      {{ form_widget(form.exerciseParameters, { 'id': 'exercise_params' }) }}
+      <a id="add-param" href="#">{{ 'links.add_parameter'|trans }}</a>
+    </div>
+
+    {{ form_end(form) }}
+  </div>
 {% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  {% javascripts
+  '@FTFrontBundle/Resources/public/js/app/app.js'
+  '@FTFrontBundle/Resources/public/js/app/views/ExerciseFormView.js' %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
+  <script type="text/javascript">
+    $(function() {
+      new FTApp.Views.ExerciseFormView({
+        el: $('#page')
+      });
+    });
+  </script>
+{% endblock javascripts %}

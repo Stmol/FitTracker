@@ -9,6 +9,8 @@ Cancel: Отмена
 exercise:
     list: Упражнения
     title: Название
+    brief: Описание
+    exercise_parameters: Параметры
     created_at: Добавлено
     add: Добавить упражнения
     edit: Изменить набор упражнений
@@ -20,3 +22,17 @@ workout:
     brief: Описание
     created_at: Добавлено
     exercises: Упражнения
+
+exercise_parameter:
+    title: Название
+    kind: Тип
+
+label:
+    kind:
+        number: Количество
+        distance: Дистанция
+        time: Время
+        weight: Вес
+
+links:
+    add_parameter: Добавить параметр
