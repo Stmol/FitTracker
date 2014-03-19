@@ -1,11 +1,24 @@
 {% extends 'FTFrontBundle:Exercise:layout.html.twig' %}
 
 {% block content -%}
-  <h2>{{ entity.title }}</h2>
+  <h2>{{ exercise.title }}</h2>
 
+  <strong>{{ 'entity.exercise.property.created_at'|trans }}</strong>: {{ exercise.createdAt|date("d F Y") }}
+
+  <p>{{ exercise.brief }}</p>
+
+  {% if exercise.exerciseParameters|length > 0 %}
+    <h3>{{ 'exercise.show.parameters'|trans }}</h3>
+    <ul>
+      {% for parameter in exercise.exerciseParameters %}
+      <li>{{ parameter.title }} ({{ parameter.kind|trans }})</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h3>{{ 'exercise.show.actions'|trans }}</h3>
   <ul>
-    <li><strong>{{ 'exercise.created_at'|trans }}</strong>: {{ entity.createdAt|date("d F Y") }}</li>
-    <li><a href="{{ path('exercises_edit', { 'id': entity.id }) }}">{{ 'Edit'|trans }}</a></li>
+    <li><a href="{{ path('exercises_edit', { 'id': exercise.id }) }}">{{ 'Edit'|trans }}</a></li>
     <li>{{ form(delete_form) }}</li>
   </ul>
 {% endblock %}

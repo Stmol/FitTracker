@@ -5,34 +5,68 @@ Update: Сохранить
 Delete: Удалить
 Save: Сохранить
 Cancel: Отмена
+Clear: Очистить
+
+Actions: Действия
+Parameters: Параметры
 
 exercise:
-    list: Упражнения
-    title: Название
-    brief: Описание
-    exercise_parameters: Параметры
-    created_at: Добавлено
     add: Добавить упражнения
     edit: Изменить набор упражнений
     exist: Доступные упражнения
-
-workout:
-    list: Тренировки
-    title: Название
-    brief: Описание
-    created_at: Добавлено
-    exercises: Упражнения
 
 exercise_parameter:
     title: Название
     kind: Тип
 
-label:
-    kind:
-        number: Количество
-        distance: Дистанция
-        time: Время
-        weight: Вес
+# Global
+number: Количество
+distance: Дистанция
+time: Время
+weight: Вес
 
-links:
-    add_parameter: Добавить параметр
+# Entities
+entity:
+    exercise:
+        property:
+            created_at: Добавлено
+            title: Название
+            brief: Описание
+            exercise_parameters: Параметры
+    workout:
+        property:
+            title: Название
+            brief: Описание
+            created_at: Добавлено
+    exercise_parameter:
+        property:
+            title: Название
+            kind: Тип
+
+# Exercise views
+exercise:
+    layout:
+        list: Список упражнений
+    show:
+        actions: Действия
+        parameters: Параметры
+    new:
+        add_parameter: Добавить параметр
+    edit:
+        add_parameter: Добавить параметр
+
+# Workout view
+workout:
+    layout:
+        list: Список тренировок
+    show:
+        exercise_add: Добавить упражнения
+        exercises_list: Упражнения
+    exercises_edit:
+        exercises_exist: Доступные упражнения
+
+
+# Base view
+base:
+    exercise_list: Упражнения
+    workout_list: Тренировки

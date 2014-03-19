@@ -35,10 +35,10 @@ class ExerciseParameterType extends AbstractType
                 'label'       => 'exercise_parameter.kind',
                 'empty_value' => false,
                 'choices'     => [
-                    ExerciseParameter::KIND_NUMBER   => 'label.kind.number',
-                    ExerciseParameter::KIND_WEIGHT   => 'label.kind.weight',
-                    ExerciseParameter::KIND_TIME     => 'label.kind.time',
-                    ExerciseParameter::KIND_DISTANCE => 'label.kind.distance',
+                    ExerciseParameter::KIND_NUMBER   => 'number',
+                    ExerciseParameter::KIND_WEIGHT   => 'weight',
+                    ExerciseParameter::KIND_TIME     => 'time',
+                    ExerciseParameter::KIND_DISTANCE => 'distance',
                 ],
             ])
         ;

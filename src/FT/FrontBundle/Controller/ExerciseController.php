@@ -44,7 +44,7 @@ class ExerciseController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('FTFrontBundle:Exercise:show.html.twig', [
-            'entity'      => $exercise,
+            'exercise'    => $exercise,
             'delete_form' => $deleteForm->createView(),
         ]);
     }

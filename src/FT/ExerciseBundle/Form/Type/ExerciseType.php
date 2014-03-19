@@ -17,17 +17,17 @@ class ExerciseType extends AbstractType
     {
         $builder
             ->add('title', 'text', [
-                'label' => 'exercise.title',
+                'label' => 'entity.exercise.property.title',
             ])
             ->add('brief', 'textarea', [
-                'label' => 'exercise.brief',
+                'label' => 'entity.exercise.property.brief',
             ])
             ->add('exerciseParameters', 'collection', [
                 'type'         => new ExerciseParameterType(),
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'label'        => 'exercise.exercise_parameters',
+                'label'        => 'entity.exercise.property.exercise_parameters',
             ])
         ;
     }

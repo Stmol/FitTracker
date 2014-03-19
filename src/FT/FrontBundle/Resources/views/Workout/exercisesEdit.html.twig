@@ -1,0 +1,67 @@
+{% extends 'FTFrontBundle:Workout:layout.html.twig' %}
+
+{% block content -%}
+  <h2>Добавить упражнения в тренировку «{{ workout.title }}»</h2>
+
+  <div id="page">
+    <ul class="workout-sets" data-workout-id="{{ workout.id }}">
+      {% for set in workout.exerciseSets if set.exercise.isEnabled %}
+        <li>{{ set.exercise.title }}</li>
+      {% endfor %}
+    </ul>
+
+    <button id="save">{{ 'Save'|trans }}</button>
+    <button id="clear">{{ 'Clear'|trans }}</button>
+
+    {#{{ form_start(form) }}#}
+      {#{{ form_widget(form.exerciseSets, { 'id': 'exercises_input' }) }}#}
+      {#<div id="list-set" data-prototype="{{ form_widget(form.exerciseSets.vars.prototype)|e }}">#}
+        {#{% for exerciseSet in form.exerciseSets %}#}
+          {#{{ form_row(exerciseSet.exercise) }}#}
+        {#{% endfor %}#}
+      {#</div>#}
+      {#<a id="add-set" href="#">Добавить подход</a>#}
+    {#{{ form_end(form) }}#}
+
+    <h3>{{ 'workout.exercises_edit.exercises_exist'|trans }}</h3>
+
+    <ul class="exercises-list">
+      {% for exercise in exercises if exercise.isEnabled %}
+        <li data-id="{{ exercise.id }}">{{ exercise.title }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  {% javascripts
+    '@FTFrontBundle/Resources/public/js/app/app.js'
+    '@FTFrontBundle/Resources/public/js/app/models/Set.js'
+    '@FTFrontBundle/Resources/public/js/app/collections/Sets.js'
+    '@FTFrontBundle/Resources/public/js/app/views/WorkoutSetsFormView.js' %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
+  <script type="text/javascript">
+    $(function () {
+      var SetsCollection = new FTApp.Collections.Sets();
+      {#SetsCollection.url = '{{ path('api_sets_list') }}';#}
+
+      {% for set in workout.exerciseSets if set.exercise.isEnabled -%}
+        SetsCollection.add({
+          id: {{ set.id }},
+          exercise_id: {{ set.exercise.id }},
+          workout_id: {{ workout.id }},
+          order: SetsCollection.nextOrder()
+        });
+      {% endfor %}
+
+      new FTApp.Views.WorkoutSetsFormView({
+        el: $('#page'),
+        collection: SetsCollection
+      });
+    });
+  </script>
+{% endblock %}

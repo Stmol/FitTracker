@@ -5,9 +5,9 @@
 
   <ul>
     {% if entity.brief %}
-      <li><strong>{{ 'workout.brief'|trans }}</strong>: {{ entity.brief }}</li>
+      <li><strong>{{ 'entity.workout.property.brief'|trans }}</strong>: {{ entity.brief }}</li>
     {% endif %}
-    <li><strong>{{ 'workout.created_at'|trans }}</strong>: {{ entity.createdAt|date('d F Y') }}</li>
+    <li><strong>{{ 'entity.workout.property.created_at'|trans }}</strong>: {{ entity.createdAt|date('d F Y') }}</li>
   </ul>
 
   <ul>
@@ -15,17 +15,17 @@
     <li>{{ form(delete_form) }}</li>
   </ul>
 
-  <h2>{{ 'workout.exercises'|trans }}</h2>
+  <h2>{{ 'workout.show.exercises_list'|trans }}</h2>
 
   {% if entity.exerciseSets|length < 1 %}
-    <a href="{{ path('workouts_exercises_edit', { 'id': entity.id }) }}">{{ 'exercise.add'|trans }}</a>
+    <a href="{{ path('workouts_exercises_edit', { 'id': entity.id }) }}">{{ 'workout.show.exercise_add'|trans }}</a>
   {% else %}
     <ul>
       {% for set in entity.exerciseSets if set.exercise.isEnabled %}
         <li>{{ set.exercise.title }}</li>
       {% endfor %}
     </ul>
-    <a href="{{ path('workouts_exercises_edit', { 'id': entity.id }) }}">{{ 'exercise.edit'|trans }}</a>
+    <a href="{{ path('workouts_exercises_edit', { 'id': entity.id }) }}">{{ 'workout.show.exercise_edit'|trans }}</a>
   {% endif %}
 
 {% endblock %}
