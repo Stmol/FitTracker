@@ -9,6 +9,7 @@
 
 namespace FT\ApiBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FT\UserBundle\Entity\User;
 use FT\UserBundle\Form\Type\UserType;
@@ -23,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends FOSRestController
 {
     /**
-     * @View()
+     * @Rest\View()
      *
      * @param Request $request
      * @return \FOS\RestBundle\View\View
@@ -40,7 +41,7 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @View(statusCode=201)
+     * @Rest\View(statusCode=201)
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \FT\UserBundle\Entity\User|\Symfony\Component\Form\Form
@@ -62,7 +63,7 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @View()
+     * @Rest\View()
      *
      * @param $id
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
