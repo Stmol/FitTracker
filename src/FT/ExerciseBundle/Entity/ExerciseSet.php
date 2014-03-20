@@ -2,6 +2,7 @@
 
 namespace FT\ExerciseBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FT\ExerciseBundle\Entity\Exercise;
 use FT\WorkoutBundle\Entity\Workout;
@@ -23,23 +24,34 @@ class ExerciseSet
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var integer
      *
      * @ORM\Column(name="sequence", type="integer")
      */
     private $sequence;
-
     /**
      * @ORM\ManyToOne(targetEntity="Exercise")
      */
     private $exercise;
-
     /**
      * @ORM\ManyToOne(targetEntity="FT\WorkoutBundle\Entity\Workout", inversedBy="exerciseSets")
      */
     private $workout;
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="ExerciseParameterValue", mappedBy="exerciseSet")
+     */
+    private $exerciseParameterValues;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->exerciseParameterValues = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -49,6 +61,16 @@ class ExerciseSet
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get sequence
+     *
+     * @return integer
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
     }
 
     /**
@@ -65,13 +87,13 @@ class ExerciseSet
     }
 
     /**
-     * Get sequence
+     * Get exercise
      *
-     * @return integer 
+     * @return Exercise
      */
-    public function getSequence()
+    public function getExercise()
     {
-        return $this->sequence;
+        return $this->exercise;
     }
 
     /**
@@ -88,13 +110,13 @@ class ExerciseSet
     }
 
     /**
-     * Get exercise
+     * Get workout
      *
-     * @return Exercise
+     * @return Workout
      */
-    public function getExercise()
+    public function getWorkout()
     {
-        return $this->exercise;
+        return $this->workout;
     }
 
     /**
@@ -111,12 +133,35 @@ class ExerciseSet
     }
 
     /**
-     * Get workout
+     * Add exerciseParameterValue
      *
-     * @return Workout
+     * @param ExerciseParameterValue $exerciseParameterValue
+     * @return ExerciseSet
      */
-    public function getWorkout()
+    public function addExerciseParameterValue(ExerciseParameterValue $exerciseParameterValue)
     {
-        return $this->workout;
+        $this->exerciseParameterValues[] = $exerciseParameterValue;
+
+        return $this;
+    }
+
+    /**
+     * Remove exerciseParameterValue
+     *
+     * @param ExerciseParameterValue $exerciseParameterValue
+     */
+    public function removeExerciseParameterValue(ExerciseParameterValue $exerciseParameterValue)
+    {
+        $this->exerciseParameterValues->removeElement($exerciseParameterValue);
+    }
+
+    /**
+     * Get exerciseParameterValues
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExerciseParameterValues()
+    {
+        return $this->exerciseParameterValues;
     }
 }

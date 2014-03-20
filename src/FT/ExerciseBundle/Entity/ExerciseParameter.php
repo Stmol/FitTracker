@@ -14,7 +14,7 @@ class ExerciseParameter
 {
     const
         KIND_WEIGHT   = 'weight',
-        KIND_NUMBER   = 'number',
+        KIND_NUMBER   = 'quantity',
         KIND_TIME     = 'time',
         KIND_DISTANCE = 'distance'
     ;
