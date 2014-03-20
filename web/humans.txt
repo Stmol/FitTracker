@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Aleksey Podskrebyshev -- Head Developer -- @alexpods
+    Yury Smidovich        -- Head Developer -- @stmol
+
+# THANKS
+
+    <name>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3, jQuery
