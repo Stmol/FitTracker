@@ -1,0 +1,9 @@
+api_workouts_update:
+    path: /workouts/{id}.{_format}
+    methods: [PUT, PATCH]
+    defaults:
+        _controller: FTApiBundle:Workout:update
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+

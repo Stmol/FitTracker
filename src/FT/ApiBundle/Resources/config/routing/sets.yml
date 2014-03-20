@@ -1,0 +1,47 @@
+api_sets_list:
+    path: /sets.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:ExerciseSet:list
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_sets_create:
+    path: /sets.{_format}
+    methods: [POST]
+    defaults:
+        _controller: FTApiBundle:ExerciseSet:create
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_sets_read:
+    path: /sets/{id}.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:ExerciseSet:read
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+
+
+api_sets_update:
+    path: /sets/{id}.{_format}
+    methods: [PUT]
+    defaults:
+        _controller: FTApiBundle:ExerciseSet:update
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+
+
+api_sets_delete:
+    path: /sets/{id}.{_format}
+    methods: [DELETE]
+    defaults:
+        _controller: FTApiBundle:ExerciseSet:delete
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+
