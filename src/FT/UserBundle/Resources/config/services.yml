@@ -1,7 +1,7 @@
 parameters:
-#    ft_user.example.class: FT\UserBundle\Example
+    ft_user.manager.user.class: FT\UserBundle\Manager\UserManager
 
 services:
-#    ft_user.example:
-#        class: %ft_user.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ft_user.manager.user:
+        class: %ft_user.manager.user.class%
+        arguments: [@doctrine.orm.entity_manager, @security.encoder_factory]

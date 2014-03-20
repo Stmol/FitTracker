@@ -1,0 +1,27 @@
+api_users_list:
+    path: /users.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:User:index
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_users_create:
+    path: /users.{_format}
+    methods: [POST]
+    defaults:
+        _controller: FTApiBundle:User:create
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_users_read:
+    path: /users/{id}.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:User:read
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+
