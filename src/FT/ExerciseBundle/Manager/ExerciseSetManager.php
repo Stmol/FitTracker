@@ -30,7 +30,7 @@ class ExerciseSetManager implements EntityManagerInterface
     /**
      * @param ObjectManager $objectManager
      */
-    function __construct(ObjectManager $objectManager)
+    public function __construct(ObjectManager $objectManager)
     {
         $this->objectManager = $objectManager;
     }

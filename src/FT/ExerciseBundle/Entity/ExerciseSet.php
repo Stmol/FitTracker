@@ -4,9 +4,7 @@ namespace FT\ExerciseBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use FT\ExerciseBundle\Entity\Exercise;
 use FT\WorkoutBundle\Entity\Workout;
-use Symfony\Component\Validator\Constraint as Assert;
 
 /**
  * ExerciseSet
@@ -56,7 +54,7 @@ class ExerciseSet
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +74,7 @@ class ExerciseSet
     /**
      * Set sequence
      *
-     * @param integer $sequence
+     * @param  integer     $sequence
      * @return ExerciseSet
      */
     public function setSequence($sequence)
@@ -99,7 +97,7 @@ class ExerciseSet
     /**
      * Set exercise
      *
-     * @param Exercise $exercise
+     * @param  Exercise    $exercise
      * @return ExerciseSet
      */
     public function setExercise(Exercise $exercise = null)
@@ -122,7 +120,7 @@ class ExerciseSet
     /**
      * Set workout
      *
-     * @param Workout $workout
+     * @param  Workout     $workout
      * @return ExerciseSet
      */
     public function setWorkout(Workout $workout = null)
@@ -135,7 +133,7 @@ class ExerciseSet
     /**
      * Add exerciseParameterValue
      *
-     * @param ExerciseParameterValue $exerciseParameterValue
+     * @param  ExerciseParameterValue $exerciseParameterValue
      * @return ExerciseSet
      */
     public function addExerciseParameterValue(ExerciseParameterValue $exerciseParameterValue)
@@ -158,7 +156,7 @@ class ExerciseSet
     /**
      * Get exerciseParameterValues
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getExerciseParameterValues()
     {

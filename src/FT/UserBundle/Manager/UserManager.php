@@ -33,10 +33,10 @@ class UserManager implements EntityManagerInterface
     private $encoderFactory;
 
     /**
-     * @param ObjectManager $objectManager
+     * @param ObjectManager  $objectManager
      * @param EncoderFactory $encoderFactory
      */
-    function __construct(ObjectManager $objectManager, EncoderFactory $encoderFactory)
+    public function __construct(ObjectManager $objectManager, EncoderFactory $encoderFactory)
     {
         $this->objectManager = $objectManager;
         $this->encoderFactory = $encoderFactory;
@@ -135,13 +135,14 @@ class UserManager implements EntityManagerInterface
     /**
      * Encode password
      *
-     * @param UserInterface $user
+     * @param  UserInterface $user
      * @param $password
      * @return string
      */
     public function encodePassword(UserInterface $user, $password)
     {
         $encoder = $this->encoderFactory->getEncoder($user);
+
         return $encoder->encodePassword($password, $user->getSalt());
     }
 }

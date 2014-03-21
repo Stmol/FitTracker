@@ -44,7 +44,7 @@ class ExerciseParameterValue
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,7 +64,7 @@ class ExerciseParameterValue
     /**
      * Set value
      *
-     * @param float $value
+     * @param  float                  $value
      * @return ExerciseParameterValue
      */
     public function setValue($value)
@@ -87,7 +87,7 @@ class ExerciseParameterValue
     /**
      * Set exerciseParameter
      *
-     * @param ExerciseParameter $exerciseParameter
+     * @param  ExerciseParameter      $exerciseParameter
      * @return ExerciseParameterValue
      */
     public function setExerciseParameter(ExerciseParameter $exerciseParameter = null)
@@ -110,7 +110,7 @@ class ExerciseParameterValue
     /**
      * Set exerciseSet
      *
-     * @param ExerciseSet $exerciseSet
+     * @param  ExerciseSet            $exerciseSet
      * @return ExerciseParameterValue
      */
     public function setExerciseSet(ExerciseSet $exerciseSet = null)

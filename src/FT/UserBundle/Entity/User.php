@@ -89,7 +89,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $plainPassword
+     * @param  string $plainPassword
      * @return $this
      */
     public function setPlainPassword($plainPassword)
@@ -102,7 +102,7 @@ class User implements UserInterface
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -122,7 +122,7 @@ class User implements UserInterface
     /**
      * Set username
      *
-     * @param string $username
+     * @param  string $username
      * @return User
      */
     public function setUsername($username)
@@ -145,7 +145,7 @@ class User implements UserInterface
     /**
      * Set password
      *
-     * @param string $password
+     * @param  string $password
      * @return User
      */
     public function setPassword($password)
@@ -168,7 +168,7 @@ class User implements UserInterface
     /**
      * Set salt
      *
-     * @param string $salt
+     * @param  string $salt
      * @return User
      */
     public function setSalt($salt)
@@ -191,7 +191,7 @@ class User implements UserInterface
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return User
      */
     public function setCreatedAt($createdAt)

@@ -56,7 +56,7 @@ class ApiToken
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -66,7 +66,7 @@ class ApiToken
     /**
      * Set token
      *
-     * @param string $token
+     * @param  string   $token
      * @return ApiToken
      */
     public function setToken($token)
@@ -79,7 +79,7 @@ class ApiToken
     /**
      * Get token
      *
-     * @return string 
+     * @return string
      */
     public function getToken()
     {
@@ -89,7 +89,7 @@ class ApiToken
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return ApiToken
      */
     public function setCreatedAt($createdAt)
@@ -102,7 +102,7 @@ class ApiToken
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -112,7 +112,7 @@ class ApiToken
     /**
      * Set user
      *
-     * @param User $user
+     * @param  User     $user
      * @return ApiToken
      */
     public function setUser(User $user = null)

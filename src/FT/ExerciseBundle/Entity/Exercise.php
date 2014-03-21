@@ -120,7 +120,7 @@ class Exercise
     }
 
     /**
-     * @param string $brief
+     * @param  string $brief
      * @return $this
      */
     public function setBrief($brief)
@@ -187,7 +187,7 @@ class Exercise
     /**
      * Add Exercise Parameter
      *
-     * @param ExerciseParameter $exerciseParameter
+     * @param  ExerciseParameter $exerciseParameter
      * @return Exercise
      */
     public function addExerciseParameter(ExerciseParameter $exerciseParameter)
@@ -211,7 +211,7 @@ class Exercise
     /**
      * Get exerciseParameters
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getExerciseParameters()
     {

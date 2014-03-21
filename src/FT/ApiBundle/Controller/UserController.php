@@ -14,7 +14,6 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FT\UserBundle\Entity\User;
 use FT\UserBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UserController
@@ -26,7 +25,7 @@ class UserController extends FOSRestController
     /**
      * @Rest\View()
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @return \FOS\RestBundle\View\View
      */
     public function indexAction(Request $request)
@@ -43,7 +42,7 @@ class UserController extends FOSRestController
     /**
      * @Rest\View(statusCode=201)
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param  \Symfony\Component\HttpFoundation\Request               $request
      * @return \FT\UserBundle\Entity\User|\Symfony\Component\Form\Form
      */
     public function createAction(Request $request)
@@ -81,7 +80,7 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @param User $user
+     * @param  User                         $user
      * @return \Symfony\Component\Form\Form
      */
     private function createUserForm(User $user)

@@ -9,7 +9,6 @@
 
 namespace FT\ApiBundle\Manager;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
 use FT\ApiBundle\Entity\ApiToken;
 use FT\AppBundle\Manager\EntityManagerInterface;
@@ -30,13 +29,13 @@ class ApiTokenManager implements EntityManagerInterface
     /**
      * @param ObjectManager $objectManager
      */
-    function __construct(ObjectManager $objectManager)
+    public function __construct(ObjectManager $objectManager)
     {
         $this->objectManager = $objectManager;
     }
 
     /**
-     * @param \FT\UserBundle\Entity\User $user
+     * @param  \FT\UserBundle\Entity\User $user
      * @return ApiToken
      */
     public function create(User $user = null)

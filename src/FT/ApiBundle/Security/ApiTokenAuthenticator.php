@@ -35,14 +35,14 @@ class ApiTokenAuthenticator implements SimplePreAuthenticatorInterface, Authenti
     /**
      * @param ApiTokenUserProvider $userProvider
      */
-    function __construct(ApiTokenUserProvider $userProvider)
+    public function __construct(ApiTokenUserProvider $userProvider)
     {
         $this->userProvider = $userProvider;
     }
 
     /**
-     * @param TokenInterface $token
-     * @param UserProviderInterface $userProvider
+     * @param  TokenInterface                                                     $token
+     * @param  UserProviderInterface                                              $userProvider
      * @param $providerKey
      * @return PreAuthenticatedToken
      * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException
@@ -70,7 +70,7 @@ class ApiTokenAuthenticator implements SimplePreAuthenticatorInterface, Authenti
     }
 
     /**
-     * @param TokenInterface $token
+     * @param  TokenInterface $token
      * @param $providerKey
      * @return bool
      */
@@ -80,7 +80,7 @@ class ApiTokenAuthenticator implements SimplePreAuthenticatorInterface, Authenti
     }
 
     /**
-     * @param Request $request
+     * @param  Request                                                            $request
      * @param $providerKey
      * @return PreAuthenticatedToken
      * @throws \Symfony\Component\Security\Core\Exception\BadCredentialsException
@@ -99,7 +99,7 @@ class ApiTokenAuthenticator implements SimplePreAuthenticatorInterface, Authenti
      * called by authentication listeners inheriting from
      * AbstractAuthenticationListener.
      *
-     * @param Request $request
+     * @param Request                 $request
      * @param AuthenticationException $exception
      *
      * @return Response The response to return, never null

@@ -9,7 +9,6 @@
 
 namespace FT\ApiBundle\Security;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
 use FT\ApiBundle\Entity\ApiToken;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -32,7 +31,7 @@ class ApiTokenUserProvider implements UserProviderInterface
     /**
      * @param ObjectManager $objectManager
      */
-    function __construct(ObjectManager $objectManager)
+    public function __construct(ObjectManager $objectManager)
     {
         $this->objectManager = $objectManager;
     }

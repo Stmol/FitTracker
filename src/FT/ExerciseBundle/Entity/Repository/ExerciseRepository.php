@@ -26,7 +26,7 @@ class ExerciseRepository extends EntityRepository
     /**
      * @TODO: Add limit and offset
      *
-     * @param array $ids
+     * @param  array $ids
      * @return array
      */
     public function findAllByIds(array $ids)

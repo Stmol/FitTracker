@@ -43,7 +43,7 @@ class WorkoutManager implements EntityManagerInterface
 
     /**
      * @param $workout
-     * @param bool $flush
+     * @param  bool                      $flush
      * @throws \InvalidArgumentException
      */
     public function save($workout, $flush = true)

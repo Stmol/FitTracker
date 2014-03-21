@@ -52,7 +52,7 @@ class ExerciseParameter
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +62,7 @@ class ExerciseParameter
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string            $title
      * @return ExerciseParameter
      */
     public function setTitle($title)
@@ -75,7 +75,7 @@ class ExerciseParameter
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -83,7 +83,7 @@ class ExerciseParameter
     }
 
     /**
-     * @param string $kind
+     * @param  string                    $kind
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -122,7 +122,7 @@ class ExerciseParameter
     /**
      * Set exercise
      *
-     * @param Exercise $exercise
+     * @param  Exercise          $exercise
      * @return ExerciseParameter
      */
     public function setExercise(Exercise $exercise = null)

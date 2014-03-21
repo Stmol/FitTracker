@@ -9,7 +9,6 @@
 
 namespace FT\ApiBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -21,7 +20,7 @@ class SecurityController extends Controller
     /**
      * @Rest\View(statusCode="202")
      *
-     * @param Request $request
+     * @param  Request                                                            $request
      * @throws \Symfony\Component\Security\Core\Exception\BadCredentialsException
      * @throws \Exception
      * @return string
@@ -78,7 +77,7 @@ class SecurityController extends Controller
      *
      * @Security("has_role('ROLE_API')")
      *
-     * @param Request $request
+     * @param  Request                                                            $request
      * @throws \Symfony\Component\Security\Core\Exception\BadCredentialsException
      */
     public function logoutAction(Request $request)

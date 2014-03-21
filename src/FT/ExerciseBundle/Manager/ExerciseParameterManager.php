@@ -11,7 +11,6 @@ namespace FT\ExerciseBundle\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use FT\AppBundle\Manager\EntityManagerInterface;
-use FT\ExerciseBundle\Manager\ExerciseParameter;
 
 /**
  * Class ExerciseParameterManager

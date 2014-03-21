@@ -2,7 +2,6 @@
 
 namespace FT\ExerciseBundle\Form\Type;
 
-use FT\ExerciseBundle\Entity\ExerciseParameter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

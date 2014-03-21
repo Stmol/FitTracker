@@ -175,7 +175,7 @@ class Workout
     /**
      * Add exerciseSet
      *
-     * @param ExerciseSet $exerciseSet
+     * @param  ExerciseSet $exerciseSet
      * @return Workout
      */
     public function addExerciseSet(ExerciseSet $exerciseSet)
@@ -190,7 +190,7 @@ class Workout
      * Remove exerciseSet
      *
      * @param \FT\ExerciseBundle\Entity\ExerciseSet $exerciseSet
-     * @param ExerciseSet $exerciseSet
+     * @param ExerciseSet                           $exerciseSet
      */
     public function removeExerciseSet(ExerciseSet $exerciseSet)
     {
@@ -200,7 +200,7 @@ class Workout
     /**
      * Get exerciseSets
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getExerciseSets()
     {
