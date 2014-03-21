@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use FT\AppBundle\Manager\EntityManagerInterface;
 use FT\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class UserManager
@@ -77,8 +78,7 @@ class UserManager implements EntityManagerInterface
     private function updatePassword(User $user)
     {
         if (0 !== strlen($password = $user->getPlainPassword())) {
-            $encoder = $this->encoderFactory->getEncoder($user);
-            $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
+            $user->setPassword($this->encodePassword($user, $password));
             $user->eraseCredentials();
         }
     }
@@ -103,5 +103,45 @@ class UserManager implements EntityManagerInterface
         return $this->objectManager
             ->getRepository('FTUserBundle:User')
             ->findAllLimited($limit, $offset);
+    }
+
+    /**
+     * Get User by username and password
+     *
+     * @param $username
+     * @param $password
+     * @return User|null
+     */
+    public function getOneByCredentials($username, $password)
+    {
+        /** @var User $user */
+        $user = $this->objectManager
+            ->getRepository('FTUserBundle:User')
+            ->findOneBy(['username' => $username]);
+
+        if (!$user) {
+            return null;
+        }
+
+        $encodedPassword = $this->encodePassword($user, $password);
+
+        if ($user->getPassword() !== $encodedPassword) {
+            return null;
+        }
+
+        return $user;
+    }
+
+    /**
+     * Encode password
+     *
+     * @param UserInterface $user
+     * @param $password
+     * @return string
+     */
+    public function encodePassword(UserInterface $user, $password)
+    {
+        $encoder = $this->encoderFactory->getEncoder($user);
+        return $encoder->encodePassword($password, $user->getSalt());
     }
 }

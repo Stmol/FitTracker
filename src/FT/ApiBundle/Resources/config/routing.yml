@@ -9,3 +9,6 @@ api_workouts:
 
 api_users:
     resource: "@FTApiBundle/Resources/config/routing/users.yml"
+
+api_security:
+    resource: "@FTApiBundle/Resources/config/routing/security.yml"

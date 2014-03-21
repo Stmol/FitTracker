@@ -1,0 +1,17 @@
+api_security_login:
+    path: /login.{_format}
+    methods: [POST]
+    defaults:
+        _controller: FTApiBundle:Security:login
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_security_logout:
+    path: /logout.{_format}
+    methods: [POST]
+    defaults:
+        _controller: FTApiBundle:Security:logout
+        _format: json
+    requirements:
+        _format: json|xml

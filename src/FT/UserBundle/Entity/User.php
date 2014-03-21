@@ -76,7 +76,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->setCreatedAt(new \DateTime());
+        $this->createdAt = new \DateTime();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 

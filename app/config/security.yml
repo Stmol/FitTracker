@@ -5,9 +5,9 @@ security:
             encode_as_base64: false
             iterations:       100
 
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+#    role_hierarchy:
+#        ROLE_ADMIN:       ROLE_USER
+#        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
         ft_user:
@@ -33,6 +33,12 @@ security:
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
+
+        api_area:
+            pattern: ^/api
+            stateless: true
+            simple_preauth:
+                authenticator: ft_api.apitoken_authenticator
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

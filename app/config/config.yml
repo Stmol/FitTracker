@@ -67,3 +67,6 @@ fos_rest:
         decoders:
             json: fos_rest.decoder.json
             xml: fos_rest.decoder.xml
+    exception:
+        codes:
+            'Symfony\Component\Security\Core\Exception\BadCredentialsException': 400
