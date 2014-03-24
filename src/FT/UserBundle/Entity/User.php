@@ -2,12 +2,14 @@
 
 namespace FT\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as Unique;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use FT\ExerciseBundle\Entity\Exercise;
 
 /**
  * User
@@ -74,10 +76,18 @@ class User implements UserInterface
      */
     private $plainPassword;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="\FT\ExerciseBundle\Entity\Exercise", mappedBy="user")
+     */
+    private $exercises;
+
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->createdAt = new \DateTime();
+        $this->exercises = new ArrayCollection();
     }
 
     /**
@@ -231,5 +241,38 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         $this->plainPassword = null;
+    }
+
+    /**
+     * Add exercises
+     *
+     * @param Exercise $exercise
+     * @return User
+     */
+    public function addExercise(Exercise $exercise)
+    {
+        $this->exercises[] = $exercise;
+
+        return $this;
+    }
+
+    /**
+     * Remove exercises
+     *
+     * @param Exercise $exercise
+     */
+    public function removeExercise(Exercise $exercise)
+    {
+        $this->exercises->removeElement($exercise);
+    }
+
+    /**
+     * Get exercises
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExercises()
+    {
+        return $this->exercises;
     }
 }

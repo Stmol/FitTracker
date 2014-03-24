@@ -9,69 +9,130 @@
 
 namespace FT\ExerciseBundle\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use FT\AppBundle\Manager\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use FT\ExerciseBundle\Entity\Exercise;
+use FT\UserBundle\Entity\User;
 
 /**
  * Class ExerciseManager
  * @package FT\ExerciseBundle\Manager
  * @author Yury Smidovich <dev@stmol.me>
  */
-class ExerciseManager implements EntityManagerInterface
+class ExerciseManager
 {
     /**
-     * @var ObjectManager
+     * @var EntityManager
      */
-    protected $objectManager;
+    protected $entityManager;
 
     /**
-     * @param ObjectManager $objectManager
+     * @var \Doctrine\ORM\EntityRepository
      */
-    public function __construct(ObjectManager $objectManager)
+    protected $repository;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param $className
+     */
+    public function __construct(EntityManager $entityManager, $className)
     {
-        $this->objectManager = $objectManager;
+        $this->entityManager = $entityManager;
+        $this->repository = $entityManager->getRepository($className);
     }
 
-    public function create()
+    /**
+     * Create new Exercise
+     *
+     * @param \FT\UserBundle\Entity\User $user
+     * @return Exercise
+     */
+    public function createExercise(User $user = null)
     {
-        return new Exercise();
+        $exercise = new Exercise();
+
+        if ($user) {
+            $exercise->setUser($user);
+        }
+
+        return $exercise;
     }
 
-    public function save($exercise, $flush = true)
+    /**
+     * Persist Exercise entity
+     *
+     * @param Exercise $exercise
+     * @param bool $flush
+     */
+    public function saveExercise(Exercise $exercise, $flush = true)
     {
-        $this->objectManager->persist($exercise);
+        $this->entityManager->persist($exercise);
 
         if ($flush) {
-            $this->objectManager->flush();
+            $this->entityManager->flush();
         }
-    }
-
-    public function delete($exercise)
-    {
-        if (!$exercise instanceof Exercise) {
-            throw new \InvalidArgumentException('Entity object must be instance of Exercise');
-        }
-
-        $exercise->setIsEnabled(false);
-        $this->save($exercise);
     }
 
     /**
-     * @param $id
-     * @return null|Exercise
+     * Delete Exercise
+     *
+     * @param Exercise $exercise
      */
-    public function getOneById($id)
+    public function deleteExercise(Exercise $exercise)
     {
-        return $this->objectManager
-            ->getRepository('FTExerciseBundle:Exercise')
-            ->find($id);
+        $exercise
+            ->setRemovedAt(new \DateTime())
+            ->setIsRemoved(true);
+
+        $this->saveExercise($exercise);
     }
 
-    public function getAllLimited($limit, $offset)
+    /**
+     * Find one Exercise by ID
+     *
+     * @param $id
+     * @param bool $isRemoved
+     * @return Exercise|null
+     */
+    public function findExerciseById($id, $isRemoved = false)
     {
-        return $this->objectManager
-            ->getRepository('FTExerciseBundle:Exercise')
-            ->findAllLimited($limit, $offset);
+        return $this->repository
+            ->createQueryBuilder('e')
+            ->where('e.isRemoved = :isRemoved')
+            ->andWhere('e.id = :id')
+            ->setParameter('isRemoved', $isRemoved)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * Find all Exercises by limit and offset
+     *
+     * @param bool $isRemoved
+     * @param $limit
+     * @param $offset
+     * @return mixed
+     */
+    public function findExercisesLimited($isRemoved = false, $limit = null, $offset = null)
+    {
+        $queryBuilder = $this->repository
+            ->createQueryBuilder('e')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset);
+
+        if (false === $isRemoved) {
+            $queryBuilder
+                ->where('e.isRemoved = :isRemoved')
+                ->setParameter(':isRemoved', $isRemoved);
+        }
+
+        return $queryBuilder
+            ->getQuery()
+            ->execute();
+    }
+
+    public function findExercisesByIds()
+    {
+
     }
 }

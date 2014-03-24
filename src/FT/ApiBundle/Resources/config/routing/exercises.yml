@@ -1,8 +1,8 @@
-api_exercises_list:
+api_exercises_index:
     path: /exercises.{_format}
     methods: [GET]
     defaults:
-        _controller: FTApiBundle:Exercise:list
+        _controller: FTApiBundle:Exercise:index
         _format: json
     requirements:
         _format: json|xml
@@ -28,7 +28,7 @@ api_exercises_read:
 
 api_exercises_update:
     path: /exercises/{id}.{_format}
-    methods: [PATCH]
+    methods: [PUT,PATCH]
     defaults:
         _controller: FTApiBundle:Exercise:update
         _format: json

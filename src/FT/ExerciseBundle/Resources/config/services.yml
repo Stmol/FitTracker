@@ -1,4 +1,6 @@
 parameters:
+    ft_exercise.entity.exercise.class: FT\ExerciseBundle\Entity\Exercise
+
     ft_exercise.manager.exercise.class: FT\ExerciseBundle\Manager\ExerciseManager
     ft_exercise.manager.exercise_set.class: FT\ExerciseBundle\Manager\ExerciseSetManager
     ft_exercise.manager.exercise_parameter.class: FT\ExerciseBundle\Manager\ExerciseParameterManager
@@ -8,7 +10,9 @@ parameters:
 services:
     ft_exercise.manager.exercise:
         class: %ft_exercise.manager.exercise.class%
-        arguments: [@doctrine.orm.entity_manager]
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %ft_exercise.entity.exercise.class%
 
     ft_exercise.manager.exercise_set:
         class: %ft_exercise.manager.exercise_set.class%

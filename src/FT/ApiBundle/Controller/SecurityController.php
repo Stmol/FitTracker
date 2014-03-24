@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SecurityController extends Controller
 {
     /**
-     * @Rest\View(statusCode="202")
+     * @Rest\View(statusCode=202)
      *
      * @param  Request                                                            $request
      * @throws \Symfony\Component\Security\Core\Exception\BadCredentialsException
@@ -73,7 +73,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Rest\View(statusCode="204")
+     * @Rest\View(statusCode=204)
      *
      * @Security("has_role('ROLE_API')")
      *

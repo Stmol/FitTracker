@@ -6,12 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
+use FT\UserBundle\Entity\User;
 
 /**
  * Exercise
  *
  * @ORM\Table(name="exercises")
- * @ORM\Entity(repositoryClass="FT\ExerciseBundle\Entity\Repository\ExerciseRepository")
+ * @ORM\Entity()
  *
  * @Serializer\ExclusionPolicy("all")
  */
@@ -27,7 +28,6 @@ class Exercise
      * @Serializer\Expose
      */
     private $id;
-
     /**
      * @var string
      *
@@ -38,7 +38,6 @@ class Exercise
      * @Assert\NotBlank()
      */
     private $title;
-
     /**
      * @var string
      *
@@ -47,7 +46,6 @@ class Exercise
      * @Serializer\Expose
      */
     private $brief;
-
     /**
      * @var \DateTime
      *
@@ -56,16 +54,22 @@ class Exercise
      * @Serializer\Expose
      */
     private $createdAt;
-
     /**
-     * @var boolean
+     * @var \DateTime
      *
-     * @ORM\Column(name="is_enabled", type="boolean")
+     * @ORM\Column(name="removed_at", type="datetimetz", nullable=true)
      *
      * @Serializer\Expose
      */
-    private $isEnabled;
-
+    private $removedAt;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_removed", type="boolean")
+     *
+     * @Serializer\Expose
+     */
+    private $isRemoved;
     /**
      * @var ArrayCollection
      *
@@ -75,6 +79,14 @@ class Exercise
      * @Serializer\SerializedName("parameters");
      */
     private $exerciseParameters;
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="\FT\UserBundle\Entity\User", inversedBy="exercises")
+     *
+     * @Serializer\Expose
+     */
+    private $user;
 
     /**
      * Constructor
@@ -83,7 +95,26 @@ class Exercise
     {
         $this->exerciseParameters = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->isEnabled = true;
+        $this->isRemoved = false;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRemovedAt()
+    {
+        return $this->removedAt;
+    }
+
+    /**
+     * @param \DateTime $removedAt
+     * @return Exercise
+     */
+    public function setRemovedAt($removedAt)
+    {
+        $this->removedAt = $removedAt;
+
+        return $this;
     }
 
     /**
@@ -94,6 +125,16 @@ class Exercise
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -110,13 +151,11 @@ class Exercise
     }
 
     /**
-     * Get title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getBrief()
     {
-        return $this->title;
+        return $this->brief;
     }
 
     /**
@@ -131,11 +170,13 @@ class Exercise
     }
 
     /**
-     * @return string
+     * Get createdAt
+     *
+     * @return \DateTime
      */
-    public function getBrief()
+    public function getCreatedAt()
     {
-        return $this->brief;
+        return $this->createdAt;
     }
 
     /**
@@ -152,36 +193,26 @@ class Exercise
     }
 
     /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set isEnabled
-     *
-     * @param  boolean  $isEnabled
-     * @return Exercise
-     */
-    public function setIsEnabled($isEnabled)
-    {
-        $this->isEnabled = $isEnabled;
-
-        return $this;
-    }
-
-    /**
-     * Get isEnabled
+     * Get isRemoved
      *
      * @return boolean
      */
-    public function getIsEnabled()
+    public function getIsRemoved()
     {
-        return $this->isEnabled;
+        return $this->isRemoved;
+    }
+
+    /**
+     * Set isRemoved
+     *
+     * @param  boolean  $isRemoved
+     * @return Exercise
+     */
+    public function setIsRemoved($isRemoved)
+    {
+        $this->isRemoved = $isRemoved;
+
+        return $this;
     }
 
     /**
@@ -216,5 +247,28 @@ class Exercise
     public function getExerciseParameters()
     {
         return $this->exerciseParameters;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \FT\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     * @return Exercise
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

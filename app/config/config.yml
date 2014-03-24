@@ -61,6 +61,8 @@ swiftmailer:
     spool:     { type: memory }
 
 fos_rest:
+#    serializer:
+#        serialize_null: true
     view:
         view_response_listener: 'force'
     body_listener:
