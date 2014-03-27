@@ -9,47 +9,62 @@
 
 namespace FT\ExerciseBundle\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use FT\AppBundle\Manager\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
+use FT\ExerciseBundle\Entity\Exercise;
+use FT\ExerciseBundle\Entity\ExerciseParameter;
 
 /**
  * Class ExerciseParameterManager
  * @package FT\ExerciseBundle\Manager
  * @author Yury Smidovich <dev@stmol.me>
  */
-class ExerciseParameterManager implements EntityManagerInterface
+class ExerciseParameterManager
 {
     /**
-     * @var ObjectManager
+     * @var EntityManager
      */
-    protected $objectManager;
+    protected $entityManager;
 
     /**
-     * @param ObjectManager $objectManager
+     * @var \Doctrine\ORM\EntityRepository
      */
-    public function __construct(ObjectManager $objectManager)
+    protected $repository;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param $className
+     */
+    public function __construct(EntityManager $entityManager, $className)
     {
-        $this->objectManager = $objectManager;
+        $this->entityManager = $entityManager;
+        $this->repository = $entityManager->getRepository($className);
     }
 
     /**
+     * @param \FT\ExerciseBundle\Entity\Exercise $exercise
      * @return ExerciseParameter
      */
-    public function create()
+    public function createExerciseParameter(Exercise $exercise = null)
     {
-        return new ExerciseParameter();
+        $exerciseParameter = new ExerciseParameter();
+
+        if ($exercise instanceof Exercise) {
+            $exerciseParameter->setExercise($exercise);
+        }
+
+        return $exerciseParameter;
     }
 
     /**
-     * @param $exerciseParameter
+     * @param ExerciseParameter $exerciseParameter
      * @param bool $flush
      */
-    public function save($exerciseParameter, $flush = true)
+    public function saveExerciseParameter(ExerciseParameter $exerciseParameter, $flush = true)
     {
-        $this->objectManager->persist($exerciseParameter);
+        $this->entityManager->persist($exerciseParameter);
 
         if ($flush) {
-            $this->objectManager->flush();
+            $this->entityManager->flush();
         }
     }
 
@@ -57,35 +72,73 @@ class ExerciseParameterManager implements EntityManagerInterface
      * @param $exerciseParameter
      * @param bool $flush
      */
-    public function delete($exerciseParameter, $flush = true)
+    public function deleteExerciseParameter(ExerciseParameter $exerciseParameter, $flush = true)
     {
-        $this->objectManager->remove($exerciseParameter);
+        $exerciseParameter
+            ->setRemovedAt(new \DateTime())
+            ->setIsRemoved(true);
 
-        if ($flush) {
-            $this->objectManager->flush();
-        }
+        $this->saveExerciseParameter($exerciseParameter, $flush);
     }
 
     /**
+     * Find one by ID
+     *
      * @param $id
-     * @return object
+     * @return ExerciseParameter|null
      */
-    public function getOneById($id)
+    public function findExerciseParameterById($id)
     {
-        return $this->objectManager
-            ->getRepository('FTExerciseBundle:ExerciseParameter')
-            ->find($id);
+        return $this->repository->find($id);
     }
 
     /**
-     * @param $limit
-     * @param $offset
+     * @param bool $isRemoved
+     * @param null $limit
+     * @param null $offset
      * @return mixed
      */
-    public function getAllLimited($limit, $offset)
+    public function findExerciseParametersLimited($isRemoved = false, $limit = null, $offset = null)
     {
-        return $this->objectManager
-            ->getRepository('FTExerciseBundle:ExerciseParameter')
-            ->findAllLimited($limit, $offset);
+        $limit = !empty($limit) ? $limit : 100;
+        $offset = $offset ? $offset : 0;
+
+        $queryBuilder = $this->repository
+            ->createQueryBuilder('ep')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset);
+
+        if (false === $isRemoved) {
+            $queryBuilder
+                ->where('ep.isRemoved = :isRemoved')
+                ->setParameter(':isRemoved', $isRemoved);
+        }
+
+        return $queryBuilder
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * @param Exercise $exercise
+     * @param bool $isRemoved
+     * @return array
+     */
+    public function findExerciseParametersByExercise(Exercise $exercise, $isRemoved = false)
+    {
+        $queryBuilder = $this->repository
+            ->createQueryBuilder('ep')
+            ->where('ep.exercise = :exercise')
+            ->setParameter('exercise', $exercise);
+
+        if (false === $isRemoved) {
+            $queryBuilder
+                ->andWhere('ep.isRemoved = :isRemoved')
+                ->setParameter(':isRemoved', $isRemoved);
+        }
+
+        return $queryBuilder
+            ->getQuery()
+            ->execute();
     }
 }

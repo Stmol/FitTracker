@@ -3,20 +3,23 @@
 namespace FT\ExerciseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * ExerciseParameterManager
  *
  * @ORM\Table(name="exercise_params")
- * @ORM\Entity(repositoryClass="FT\ExerciseBundle\Entity\Repository\ExerciseParameterRepository")
+ * @ORM\Entity()
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 class ExerciseParameter
 {
     const
-        KIND_WEIGHT   = 'weight',
-        KIND_NUMBER   = 'quantity',
-        KIND_TIME     = 'time',
-        KIND_DISTANCE = 'distance'
+        TYPE_WEIGHT   = 'weight',
+        TYPE_NUMBER   = 'quantity',
+        TYPE_TIME     = 'time',
+        TYPE_DISTANCE = 'distance'
     ;
 
     /**
@@ -25,6 +28,8 @@ class ExerciseParameter
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Expose
      */
     private $id;
 
@@ -32,22 +37,124 @@ class ExerciseParameter
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     *
+     * @Serializer\Expose
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="kind", type="string", length=255)
+     * @ORM\Column(name="type", type="string", length=255)
+     *
+     * @Serializer\Expose
      */
-    private $kind;
+    private $type;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_removed", type="boolean")
+     *
+     * @Serializer\Expose
+     */
+    private $isRemoved;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="removed_at", type="datetimetz", nullable=true)
+     *
+     * @Serializer\Expose
+     */
+    private $removedAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetimetz")
+     *
+     * @Serializer\Expose
+     */
+    private $createdAt;
 
     /**
      * @var Exercise
      *
      * @ORM\ManyToOne(targetEntity="Exercise", inversedBy="exerciseParameters")
+     *
+     * @Serializer\Expose
      */
     private $exercise;
+
+    public function __construct()
+    {
+        $this->isRemoved = false;
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return ExerciseParameter
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsRemoved()
+    {
+        return $this->isRemoved;
+    }
+
+    /**
+     * Set isRemoved
+     *
+     * @param boolean $isRemoved
+     * @return ExerciseParameter
+     */
+    public function setIsRemoved($isRemoved)
+    {
+        $this->isRemoved = $isRemoved;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRemovedAt()
+    {
+        return $this->removedAt;
+    }
+
+    /**
+     * Set removedAt
+     *
+     * @param \DateTime $removedAt
+     * @return ExerciseParameter
+     */
+    public function setRemovedAt($removedAt)
+    {
+        $this->removedAt = $removedAt;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -57,6 +164,16 @@ class ExerciseParameter
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -73,50 +190,54 @@ class ExerciseParameter
     }
 
     /**
-     * Get title
+     * Get Type
      *
      * @return string
      */
-    public function getTitle()
+    public function getType()
     {
-        return $this->title;
+        return $this->type;
     }
 
     /**
-     * @param  string                    $kind
+     * Set Type
+     *
+     * @param  string                    $type
      * @throws \InvalidArgumentException
      * @return $this
      */
-    public function setKind($kind)
+    public function setType($type)
     {
-        if (!in_array($kind, $this->getKindValues())) {
+        if (!in_array($type, $this->getTypeValues())) {
             throw new \InvalidArgumentException("Invalid kind");
         }
 
-        $this->kind = $kind;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getKind()
+    public function getTypeValues()
     {
-        return $this->kind;
+        return [
+            self::TYPE_WEIGHT,
+            self::TYPE_NUMBER,
+            self::TYPE_TIME,
+            self::TYPE_DISTANCE,
+        ];
     }
 
     /**
-     * @return array
+     * Get exercise
+     *
+     * @return Exercise
      */
-    public function getKindValues()
+    public function getExercise()
     {
-        return [
-            self::KIND_WEIGHT,
-            self::KIND_NUMBER,
-            self::KIND_TIME,
-            self::KIND_DISTANCE,
-        ];
+        return $this->exercise;
     }
 
     /**
@@ -130,15 +251,5 @@ class ExerciseParameter
         $this->exercise = $exercise;
 
         return $this;
-    }
-
-    /**
-     * Get exercise
-     *
-     * @return Exercise
-     */
-    public function getExercise()
-    {
-        return $this->exercise;
     }
 }

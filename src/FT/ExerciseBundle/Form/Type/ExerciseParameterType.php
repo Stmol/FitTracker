@@ -31,14 +31,14 @@ class ExerciseParameterType extends AbstractType
             ->add('title', 'text', [
                 'label' => 'exercise_parameter.title'
             ])
-            ->add('kind', 'choice', [
+            ->add('type', 'choice', [
                 'label'       => 'exercise_parameter.kind',
                 'empty_value' => false,
                 'choices'     => [
-                    ExerciseParameter::KIND_NUMBER   => 'number',
-                    ExerciseParameter::KIND_WEIGHT   => 'weight',
-                    ExerciseParameter::KIND_TIME     => 'time',
-                    ExerciseParameter::KIND_DISTANCE => 'distance',
+                    ExerciseParameter::TYPE_NUMBER   => 'quantity',
+                    ExerciseParameter::TYPE_WEIGHT   => 'weight',
+                    ExerciseParameter::TYPE_TIME     => 'time',
+                    ExerciseParameter::TYPE_DISTANCE => 'distance',
                 ],
             ])
         ;
@@ -62,6 +62,6 @@ class ExerciseParameterType extends AbstractType
      */
     public function getName()
     {
-        return 'exercise_parameters';
+        return 'exercise_parameter';
     }
 }

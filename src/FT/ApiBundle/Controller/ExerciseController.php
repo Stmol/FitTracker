@@ -73,6 +73,8 @@ class ExerciseController extends Controller
     /**
      * Read exercise
      *
+     * @Rest\View(statusCode=200)
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param $id
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -157,7 +159,7 @@ class ExerciseController extends Controller
     /**
      * @return \FT\ExerciseBundle\Manager\ExerciseManager
      */
-    protected function getExerciseManager()
+    private function getExerciseManager()
     {
         return $this->get('ft_exercise.manager.exercise');
     }
