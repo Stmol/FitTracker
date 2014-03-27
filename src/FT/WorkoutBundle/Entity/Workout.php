@@ -7,12 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 use FT\ExerciseBundle\Entity\ExerciseSet;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
+use FT\UserBundle\Entity\User;
 
 /**
  * Workout
  *
  * @ORM\Table(name="workouts")
- * @ORM\Entity(repositoryClass="FT\WorkoutBundle\Entity\Repository\WorkoutRepository")
+ * @ORM\Entity()
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 class Workout
 {
@@ -22,6 +25,8 @@ class Workout
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Expose
      */
     private $id;
 
@@ -31,6 +36,8 @@ class Workout
      * @ORM\Column(name="title", type="string", length=255)
      *
      * @Assert\NotBlank()
+     *
+     * @Serializer\Expose
      */
     private $title;
 
@@ -38,6 +45,8 @@ class Workout
      * @var string
      *
      * @ORM\Column(name="brief", type="text", nullable=true)
+     *
+     * @Serializer\Expose
      */
     private $brief;
 
@@ -45,29 +54,73 @@ class Workout
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetimetz")
+     *
+     * @Serializer\Expose
      */
     private $createdAt;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_enabled", type="boolean")
+     * @ORM\Column(name="is_removed", type="boolean")
+     *
+     * @Serializer\Expose
      */
-    private $isEnabled;
+    private $isRemoved;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="removed_at", type="datetimetz", nullable=true)
+     *
+     * @Serializer\Expose
+     */
+    private $removedAt;
 
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="FT\ExerciseBundle\Entity\ExerciseSet", mappedBy="workout", cascade={"persist"})
+     *
      * @Serializer\SerializedName("sets");
+     * @Serializer\Expose
      */
     private $exerciseSets;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="FT\UserBundle\Entity\User", inversedBy="workouts")
+     * @ORM\JoinColumn(nullable=false)
+     *
+     * @Serializer\Expose
+     */
+    private $user;
 
     public function __construct()
     {
         $this->exerciseSets = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->isEnabled = true;
+        $this->isRemoved = false;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRemovedAt()
+    {
+        return $this->removedAt;
+    }
+
+    /**
+     * @param \DateTime $removedAt
+     * @return Workout
+     */
+    public function setRemovedAt($removedAt)
+    {
+        $this->removedAt = $removedAt;
+
+        return $this;
     }
 
     /**
@@ -78,6 +131,16 @@ class Workout
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -94,13 +157,13 @@ class Workout
     }
 
     /**
-     * Get title
+     * Get brief
      *
      * @return string
      */
-    public function getTitle()
+    public function getBrief()
     {
-        return $this->title;
+        return $this->brief;
     }
 
     /**
@@ -117,13 +180,13 @@ class Workout
     }
 
     /**
-     * Get brief
+     * Get createdAt
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getBrief()
+    public function getCreatedAt()
     {
-        return $this->brief;
+        return $this->createdAt;
     }
 
     /**
@@ -140,36 +203,26 @@ class Workout
     }
 
     /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set isEnabled
-     *
-     * @param  boolean $isEnabled
-     * @return Workout
-     */
-    public function setIsEnabled($isEnabled)
-    {
-        $this->isEnabled = $isEnabled;
-
-        return $this;
-    }
-
-    /**
-     * Get isEnabled
+     * Get isRemoved
      *
      * @return boolean
      */
-    public function getIsEnabled()
+    public function getIsRemoved()
     {
-        return $this->isEnabled;
+        return $this->isRemoved;
+    }
+
+    /**
+     * Set isRemoved
+     *
+     * @param  boolean $isRemoved
+     * @return Workout
+     */
+    public function setIsRemoved($isRemoved)
+    {
+        $this->isRemoved = $isRemoved;
+
+        return $this;
     }
 
     /**
@@ -205,5 +258,28 @@ class Workout
     public function getExerciseSets()
     {
         return $this->exerciseSets;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     * @return Workout
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

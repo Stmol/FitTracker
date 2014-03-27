@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use FT\ExerciseBundle\Entity\Exercise;
+use FT\WorkoutBundle\Entity\Workout;
 
 /**
  * User
@@ -82,6 +83,13 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="\FT\ExerciseBundle\Entity\Exercise", mappedBy="user")
      */
     private $exercises;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="FT\WorkoutBundle\Entity\Workout", mappedBy="user")
+     */
+    private $workouts;
 
     public function __construct()
     {
@@ -274,5 +282,38 @@ class User implements UserInterface
     public function getExercises()
     {
         return $this->exercises;
+    }
+
+    /**
+     * Add workouts
+     *
+     * @param Workout $workout
+     * @return User
+     */
+    public function addWorkout(Workout $workout)
+    {
+        $this->workouts[] = $workout;
+
+        return $this;
+    }
+
+    /**
+     * Remove workouts
+     *
+     * @param Workout $workouts
+     */
+    public function removeWorkout(Workout $workouts)
+    {
+        $this->workouts->removeElement($workouts);
+    }
+
+    /**
+     * Get workouts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWorkouts()
+    {
+        return $this->workouts;
     }
 }

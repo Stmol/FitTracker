@@ -1,7 +1,10 @@
 parameters:
+    ft_workout.entity.workout.class: FT\WorkoutBundle\Entity\Workout
     ft_workout.manager.workout.class: FT\WorkoutBundle\Manager\WorkoutManager
 
 services:
     ft_workout.manager.workout:
         class: %ft_workout.manager.workout.class%
-        arguments: [@doctrine.orm.entity_manager]
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %ft_workout.entity.workout.class%

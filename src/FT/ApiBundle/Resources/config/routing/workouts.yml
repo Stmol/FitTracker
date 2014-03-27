@@ -1,8 +1,46 @@
+api_workouts_index:
+    path: /workouts.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:Workout:index
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_workouts_create:
+    path: /workouts.{_format}
+    methods: [POST]
+    defaults:
+        _controller: FTApiBundle:Workout:create
+        _format: json
+    requirements:
+        _format: json|xml
+
+api_workouts_read:
+    path: /workouts/{id}.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:Workout:read
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+
+
 api_workouts_update:
     path: /workouts/{id}.{_format}
     methods: [PUT, PATCH]
     defaults:
         _controller: FTApiBundle:Workout:update
+        _format: json
+    requirements:
+        _format: json|xml
+        id: \d+
+
+api_workouts_delete:
+    path: /workouts/{id}.{_format}
+    methods: [DELETE]
+    defaults:
+        _controller: FTApiBundle:Workout:delete
         _format: json
     requirements:
         _format: json|xml

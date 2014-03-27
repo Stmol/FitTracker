@@ -9,8 +9,8 @@
 
 namespace FT\WorkoutBundle\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use FT\AppBundle\Manager\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
+use FT\UserBundle\Entity\User;
 use FT\WorkoutBundle\Entity\Workout;
 
 /**
@@ -18,27 +18,41 @@ use FT\WorkoutBundle\Entity\Workout;
  * @package FT\WorkoutBundle\Manager
  * @author Yury Smidovich <dev@stmol.me>
  */
-class WorkoutManager implements EntityManagerInterface
+class WorkoutManager
 {
     /**
-     * @var ObjectManager
+     * @var EntityManager
      */
-    protected $objectManager;
+    protected $entityManager;
 
     /**
-     * @param ObjectManager $objectManager
+     * @var \Doctrine\ORM\EntityRepository
      */
-    public function __construct(ObjectManager $objectManager)
+    protected $repository;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param $className
+     */
+    public function __construct(EntityManager $entityManager, $className)
     {
-        $this->objectManager = $objectManager;
+        $this->entityManager = $entityManager;
+        $this->repository = $entityManager->getRepository($className);
     }
 
     /**
+     * @param \FT\UserBundle\Entity\User $user
      * @return Workout
      */
-    public function create()
+    public function createWorkout(User $user = null)
     {
-        return new Workout();
+        $workout = new Workout();
+
+        if ($user instanceof User) {
+            $workout->setUser($user);
+        }
+
+        return $workout;
     }
 
     /**
@@ -46,52 +60,73 @@ class WorkoutManager implements EntityManagerInterface
      * @param  bool                      $flush
      * @throws \InvalidArgumentException
      */
-    public function save($workout, $flush = true)
+    public function saveWorkout(Workout $workout, $flush = true)
     {
-        if (!$workout instanceof Workout) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->objectManager->persist($workout);
+        $this->entityManager->persist($workout);
 
         if ($flush) {
-            $this->objectManager->flush();
+            $this->entityManager->flush();
         }
     }
 
     /**
-     * @param $workout
-     * @throws \InvalidArgumentException
+     * @param \FT\WorkoutBundle\Entity\Workout $workout
+     * @param bool $flush
      */
-    public function delete($workout)
+    public function deleteWorkout(Workout $workout, $flush = true)
     {
-        if (!$workout instanceof Workout) {
-            throw new \InvalidArgumentException();
-        }
+        $workout
+            ->setRemovedAt(new \DateTime())
+            ->setIsRemoved(true);
 
-        $workout->setIsEnabled(false);
-        $this->save($workout);
+        $this->saveWorkout($workout, $flush);
     }
 
     /**
+     * Find single Workout by ID
+     *
      * @param $id
-     * @return Workout|null
+     * @param bool $isRemoved
+     * @return null|Workout
      */
-    public function getOneById($id)
+    public function findWorkoutById($id, $isRemoved = false)
     {
-        return $this->objectManager
-            ->getRepository('FTWorkoutBundle:Workout')
-            ->find($id);
+        return $this->repository
+            ->createQueryBuilder('w')
+            ->where('w.id = :id')
+            ->andWhere('w.isRemoved = :isRemoved')
+            ->setParameter('id', $id)
+            ->setParameter('isRemoved', $isRemoved)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     /**
-     * @param $limit
-     * @param $offset
+     * Find all Workouts limited
+     *
+     * @param bool $isRemoved
+     * @param null $limit
+     * @param null $offset
+     * @return array
      */
-    public function getAllLimited($limit, $offset)
+    public function findWorkoutsLimited($isRemoved = false, $limit = null, $offset = null)
     {
-        return $this->objectManager
-            ->getRepository('FTWorkoutBundle:Workout')
-            ->findAllLimited($limit, $offset);
+        $limit = !empty($limit) ? $limit : 100;
+        $offset = $offset ? $offset : 0;
+
+        $queryBuilder = $this->repository
+            ->createQueryBuilder('w')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset);
+
+        if (false === $isRemoved) {
+            $queryBuilder
+                ->where('w.isRemoved = :isRemoved')
+                ->setParameter('isRemoved', $isRemoved);
+        }
+
+        return $queryBuilder
+            ->getQuery()
+            ->execute();
     }
 }

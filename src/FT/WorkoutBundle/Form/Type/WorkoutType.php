@@ -38,6 +38,7 @@ class WorkoutType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'FT\WorkoutBundle\Entity\Workout',
+            'intention'  => 'workout_type',
         ]);
     }
 

@@ -39,10 +39,8 @@ class ExerciseController extends Controller
         $offset = $request->query->get('offset', 0);
         $isRemoved = $request->query->has('is_removed');
 
-        $exerciseManager = $this->getExerciseManager();
-        $exercises = $exerciseManager->findExercisesLimited($isRemoved, $limit, $offset);
-
-        return $exercises;
+        return $this->getExerciseManager()
+            ->findExercisesLimited($isRemoved, $limit, $offset);
     }
 
     /**
