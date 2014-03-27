@@ -41,7 +41,7 @@ class ExerciseParameterManager
     }
 
     /**
-     * @param \FT\ExerciseBundle\Entity\Exercise $exercise
+     * @param  \FT\ExerciseBundle\Entity\Exercise $exercise
      * @return ExerciseParameter
      */
     public function createExerciseParameter(Exercise $exercise = null)
@@ -57,7 +57,7 @@ class ExerciseParameterManager
 
     /**
      * @param ExerciseParameter $exerciseParameter
-     * @param bool $flush
+     * @param bool              $flush
      */
     public function saveExerciseParameter(ExerciseParameter $exerciseParameter, $flush = true)
     {
@@ -93,9 +93,9 @@ class ExerciseParameterManager
     }
 
     /**
-     * @param bool $isRemoved
-     * @param null $limit
-     * @param null $offset
+     * @param  bool  $isRemoved
+     * @param  null  $limit
+     * @param  null  $offset
      * @return mixed
      */
     public function findExerciseParametersLimited($isRemoved = false, $limit = null, $offset = null)
@@ -120,8 +120,8 @@ class ExerciseParameterManager
     }
 
     /**
-     * @param Exercise $exercise
-     * @param bool $isRemoved
+     * @param  Exercise $exercise
+     * @param  bool     $isRemoved
      * @return array
      */
     public function findExerciseParametersByExercise(Exercise $exercise, $isRemoved = false)

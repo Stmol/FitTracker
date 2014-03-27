@@ -104,7 +104,7 @@ class ExerciseParameter
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime         $createdAt
      * @return ExerciseParameter
      */
     public function setCreatedAt($createdAt)
@@ -125,7 +125,7 @@ class ExerciseParameter
     /**
      * Set isRemoved
      *
-     * @param boolean $isRemoved
+     * @param  boolean           $isRemoved
      * @return ExerciseParameter
      */
     public function setIsRemoved($isRemoved)
@@ -146,7 +146,7 @@ class ExerciseParameter
     /**
      * Set removedAt
      *
-     * @param \DateTime $removedAt
+     * @param  \DateTime         $removedAt
      * @return ExerciseParameter
      */
     public function setRemovedAt($removedAt)

@@ -28,7 +28,7 @@ class ExerciseParametersController extends Controller
     /**
      * @Rest\View(statusCode=200)
      *
-     * @param Request $request
+     * @param  Request                                                       $request
      * @param $id
      * @return array
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -83,7 +83,7 @@ class ExerciseParametersController extends Controller
      * @Rest\View(statusCode=201)
      * @Security("has_role('ROLE_API')")
      *
-     * @param Request $request
+     * @param  Request                                                          $request
      * @param $exercise_id
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -121,7 +121,7 @@ class ExerciseParametersController extends Controller
      * @Rest\View(statusCode=204)
      * @Security("has_role('ROLE_API')")
      *
-     * @param Request $request
+     * @param  Request                                                          $request
      * @param $exercise_id
      * @param $id
      * @return \Symfony\Component\Form\Form
@@ -215,7 +215,7 @@ class ExerciseParametersController extends Controller
     }
 
     /**
-     * @param ExerciseParameter $exerciseParameter
+     * @param  ExerciseParameter            $exerciseParameter
      * @return \Symfony\Component\Form\Form
      */
     private function createExerciseParameterForm(ExerciseParameter $exerciseParameter)

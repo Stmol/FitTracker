@@ -51,7 +51,7 @@ class ExerciseController extends Controller
      * @Rest\View(statusCode=201)
      * @Security("has_role('ROLE_API')")
      *
-     * @param  Request $request
+     * @param  Request                                                         $request
      * @return \FT\ExerciseBundle\Entity\Exercise|\Symfony\Component\Form\Form
      */
     public function createAction(Request $request)
@@ -75,7 +75,7 @@ class ExerciseController extends Controller
      *
      * @Rest\View(statusCode=200)
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param  \Symfony\Component\HttpFoundation\Request                     $request
      * @param $id
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \FT\ExerciseBundle\Entity\Exercise
@@ -98,7 +98,7 @@ class ExerciseController extends Controller
      * @Rest\View(statusCode=204)
      * @Security("has_role('ROLE_API')")
      *
-     * @param  Request $request
+     * @param  Request                                                          $request
      * @param $id
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException

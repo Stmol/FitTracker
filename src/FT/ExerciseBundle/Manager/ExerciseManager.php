@@ -43,7 +43,7 @@ class ExerciseManager
     /**
      * Create new Exercise
      *
-     * @param \FT\UserBundle\Entity\User $user
+     * @param  \FT\UserBundle\Entity\User $user
      * @return Exercise
      */
     public function createExercise(User $user = null)
@@ -61,7 +61,7 @@ class ExerciseManager
      * Persist Exercise entity
      *
      * @param Exercise $exercise
-     * @param bool $flush
+     * @param bool     $flush
      */
     public function saveExercise(Exercise $exercise, $flush = true)
     {
@@ -90,7 +90,7 @@ class ExerciseManager
      * Find one Exercise by ID
      *
      * @param $id
-     * @param bool $isRemoved
+     * @param  bool          $isRemoved
      * @return Exercise|null
      */
     public function findExerciseById($id, $isRemoved = false)
@@ -108,7 +108,7 @@ class ExerciseManager
     /**
      * Find all Exercises by limit and offset
      *
-     * @param bool $isRemoved
+     * @param  bool  $isRemoved
      * @param $limit
      * @param $offset
      * @return mixed

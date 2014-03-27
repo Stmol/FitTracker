@@ -246,7 +246,7 @@ class User implements UserInterface
     /**
      * Add exercises
      *
-     * @param Exercise $exercise
+     * @param  Exercise $exercise
      * @return User
      */
     public function addExercise(Exercise $exercise)
@@ -269,7 +269,7 @@ class User implements UserInterface
     /**
      * Get exercises
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getExercises()
     {

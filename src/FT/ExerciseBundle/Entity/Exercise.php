@@ -107,7 +107,7 @@ class Exercise
     }
 
     /**
-     * @param \DateTime $removedAt
+     * @param  \DateTime $removedAt
      * @return Exercise
      */
     public function setRemovedAt($removedAt)
@@ -262,7 +262,7 @@ class Exercise
     /**
      * Set user
      *
-     * @param User $user
+     * @param  User     $user
      * @return Exercise
      */
     public function setUser(User $user = null)
