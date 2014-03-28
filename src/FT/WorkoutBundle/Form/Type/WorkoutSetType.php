@@ -36,6 +36,12 @@ class WorkoutSetType extends AbstractType
                         ->setParameter('isRemoved', false);
                 },
             ])
+            ->add('workoutSetParameters', 'collection', [
+                'type'         => new WorkoutSetParameterType(),
+                'allow_delete' => true,
+                'allow_add'    => true,
+                'by_reference' => false,
+            ])
         ;
     }
     
