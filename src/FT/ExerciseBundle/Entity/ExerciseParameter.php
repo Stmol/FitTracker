@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * ExerciseParameterManager
  *
- * @ORM\Table(name="exercise_params")
+ * @ORM\Table(name="exercise_parameters")
  * @ORM\Entity()
  *
  * @Serializer\ExclusionPolicy("all")

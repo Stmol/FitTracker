@@ -22,8 +22,8 @@ class WorkoutType extends AbstractType
             ->add('brief', 'textarea', [
                 'label' => 'workout.brief'
             ])
-            ->add('exerciseSets', 'collection', [
-                'type'         => new ExerciseSetType(),
+            ->add('workoutSets', 'collection', [
+                'type'         => new WorkoutSetType(),
                 'allow_delete' => true,
                 'allow_add'    => true,
                 'by_reference' => false,

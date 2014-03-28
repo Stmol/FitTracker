@@ -50,7 +50,7 @@ api_exercise_parameters_index:
     path: /exercises/{id}/parameters.{_format}
     methods: [GET]
     defaults:
-        _controller: FTApiBundle:ExerciseParameters:index
+        _controller: FTApiBundle:ExerciseParameter:index
         _format: json
     requirements:
         _format: json|xml
@@ -60,7 +60,7 @@ api_exercise_parameters_read:
     path: /exercises/{exercise_id}/parameters/{id}.{_format}
     methods: [GET]
     defaults:
-        _controller: FTApiBundle:ExerciseParameters:read
+        _controller: FTApiBundle:ExerciseParameter:read
         _format: json
     requirements:
         _format: json|xml
@@ -71,7 +71,7 @@ api_exercise_parameters_create:
     path: /exercises/{exercise_id}/parameters.{_format}
     methods: [POST]
     defaults:
-        _controller: FTApiBundle:ExerciseParameters:create
+        _controller: FTApiBundle:ExerciseParameter:create
         _format: json
     requirements:
         _format: json|xml
@@ -81,7 +81,7 @@ api_exercise_parameters_update:
     path: /exercises/{exercise_id}/parameters/{id}.{_format}
     methods: [PUT, PATCH]
     defaults:
-        _controller: FTApiBundle:ExerciseParameters:update
+        _controller: FTApiBundle:ExerciseParameter:update
         _format: json
     requirements:
         _format: json|xml
@@ -92,7 +92,7 @@ api_exercise_parameters_delete:
     path: /exercises/{exercise_id}/parameters/{id}.{_format}
     methods: [DELETE]
     defaults:
-        _controller: FTApiBundle:ExerciseParameters:delete
+        _controller: FTApiBundle:ExerciseParameter:delete
         _format: json
     requirements:
         _format: json|xml

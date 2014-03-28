@@ -98,3 +98,61 @@ api_workout_sets_delete:
         _format: json|xml
         workout_id: \d+
         id: \d+
+
+api_workout_set_parameters_index:
+    path: /workouts/{workout_id}/sets/{set_id}/parameters.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:WorkoutSetParameter:index
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+        set_id: \d+
+
+api_workout_set_parameters_create:
+    path: /workouts/{workout_id}/sets/{set_id}/parameters.{_format}
+    methods: [POST]
+    defaults:
+        _controller: FTApiBundle:WorkoutSetParameter:create
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+        set_id: \d+
+
+api_workout_set_parameters_read:
+    path: /workouts/{workout_id}/sets/{set_id}/parameters/{id}.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:WorkoutSetParameter:read
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+        set_id: \d+
+        id: \d+
+
+api_workout_set_parameters_update:
+    path: /workouts/{workout_id}/sets/{set_id}/parameters/{id}.{_format}
+    methods: [PUT, PATCH]
+    defaults:
+        _controller: FTApiBundle:WorkoutSetParameter:update
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+        set_id: \d+
+        id: \d+
+
+api_workout_set_parameters_delete:
+    path: /workouts/{workout_id}/sets/{set_id}/parameters/{id}.{_format}
+    methods: [DELETE]
+    defaults:
+        _controller: FTApiBundle:WorkoutSetParameter:delete
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+        set_id: \d+
+        id: \d+

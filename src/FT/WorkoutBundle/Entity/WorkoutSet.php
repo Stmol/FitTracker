@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use FT\WorkoutBundle\Entity\Workout;
 use FT\ExerciseBundle\Entity\Exercise;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * WorkoutSet
@@ -70,6 +72,14 @@ class WorkoutSet
      * @Assert\NotBlank(groups={"api"})
      */
     private $exercise;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="FT\WorkoutBundle\Entity\WorkoutSetParameter", mappedBy="workoutSet")
+     * @Serializer\SerializedName("parameters")
+     */
+    private $workoutSetParameters;
 
     public function __construct()
     {
@@ -223,5 +233,38 @@ class WorkoutSet
     public function getExercise()
     {
         return $this->exercise;
+    }
+
+    /**
+     * Add workoutSetParameter
+     *
+     * @param WorkoutSetParameter $workoutSetParameter
+     * @return WorkoutSet
+     */
+    public function addWorkoutSetParameter(WorkoutSetParameter $workoutSetParameter)
+    {
+        $this->workoutSetParameters[] = $workoutSetParameter;
+
+        return $this;
+    }
+
+    /**
+     * Remove workoutSetParameter
+     *
+     * @param WorkoutSetParameter $workoutSetParameter
+     */
+    public function removeWorkoutSetParameter(WorkoutSetParameter $workoutSetParameter)
+    {
+        $this->workoutSetParameters->removeElement($workoutSetParameter);
+    }
+
+    /**
+     * Get workoutSetParameters
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWorkoutSetParameters()
+    {
+        return $this->workoutSetParameters;
     }
 }
