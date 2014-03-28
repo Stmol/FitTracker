@@ -3,10 +3,7 @@ parameters:
     ft_exercise.entity.exercise_parameter.class: FT\ExerciseBundle\Entity\ExerciseParameter
 
     ft_exercise.manager.exercise.class: FT\ExerciseBundle\Manager\ExerciseManager
-    ft_exercise.manager.exercise_set.class: FT\ExerciseBundle\Manager\ExerciseSetManager
     ft_exercise.manager.exercise_parameter.class: FT\ExerciseBundle\Manager\ExerciseParameterManager
-#    ft_exercise.type.exercises_sets_from_exercises.class: FT\ExerciseBundle\Form\Type\ExerciseSetsFromExercisesType
-#    ft_exercise.type.exercise_set_from_exercise_id.class: FT\ExerciseBundle\Form\Type\ExerciseSetFromExerciseType
 
 services:
     ft_exercise.manager.exercise:
@@ -15,24 +12,8 @@ services:
             - @doctrine.orm.entity_manager
             - %ft_exercise.entity.exercise.class%
 
-    ft_exercise.manager.exercise_set:
-        class: %ft_exercise.manager.exercise_set.class%
-        arguments: [@doctrine.orm.entity_manager]
-
     ft_exercise.manager.exercise_parameter:
         class: %ft_exercise.manager.exercise_parameter.class%
         arguments:
             - @doctrine.orm.entity_manager
             - %ft_exercise.entity.exercise_parameter.class%
-
-#    ft_exercise.type.exercises_sets_from_exercises:
-#        class: %ft_exercise.type.exercises_sets_from_exercises.class%
-#        arguments: [@doctrine.orm.entity_manager]
-#        tags:
-#            - { name: form.type, alias: exercises_sets_from_exercises }
-#
-#    ft_exercise.type.exercise_set_from_exercise_id:
-#        class: %ft_exercise.type.exercise_set_from_exercise_id.class%
-#        arguments: [@doctrine.orm.entity_manager]
-#        tags:
-#            - { name: form.type, alias: exercise_set_from_exercise_id }

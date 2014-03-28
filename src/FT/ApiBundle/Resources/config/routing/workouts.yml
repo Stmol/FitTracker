@@ -45,3 +45,56 @@ api_workouts_delete:
     requirements:
         _format: json|xml
         id: \d+
+
+api_workout_sets_index:
+    path: /workouts/{workout_id}/sets.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:WorkoutSet:index
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+
+api_workout_sets_create:
+    path: /workouts/{workout_id}/sets.{_format}
+    methods: [POST]
+    defaults:
+        _controller: FTApiBundle:WorkoutSet:create
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+
+api_workout_sets_read:
+    path: /workouts/{workout_id}/sets/{id}.{_format}
+    methods: [GET]
+    defaults:
+        _controller: FTApiBundle:WorkoutSet:read
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+        id: \d+
+
+api_workout_sets_update:
+    path: /workouts/{workout_id}/sets/{id}.{_format}
+    methods: [PUT, PATCH]
+    defaults:
+        _controller: FTApiBundle:WorkoutSet:update
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+        id: \d+
+
+api_workout_sets_delete:
+    path: /workouts/{workout_id}/sets/{id}.{_format}
+    methods: [DELETE]
+    defaults:
+        _controller: FTApiBundle:WorkoutSet:delete
+        _format: json
+    requirements:
+        _format: json|xml
+        workout_id: \d+
+        id: \d+

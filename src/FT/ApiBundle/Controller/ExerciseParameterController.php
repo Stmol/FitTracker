@@ -19,11 +19,11 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * Class ExerciseParametersController
+ * Class ExerciseParameterController
  * @package FT\ApiBundle\Controller
  * @author Yury Smidovich <dev@stmol.me>
  */
-class ExerciseParametersController extends Controller
+class ExerciseParameterController extends Controller
 {
     /**
      * @Rest\View(statusCode=200)
@@ -68,7 +68,7 @@ class ExerciseParametersController extends Controller
 
         $exerciseParameter = $exercise->getExerciseParameters()->filter(
             function ($exerciseParameter) use ($id) {
-                return $exerciseParameter->getId() == $id;
+                return $exerciseParameter->getId() == $id and $exerciseParameter->getIsRemoved() === false;
             }
         )->first();
 
@@ -142,7 +142,7 @@ class ExerciseParametersController extends Controller
 
         $exerciseParameter = $exercise->getExerciseParameters()->filter(
             function ($exerciseParameter) use ($id) {
-                return $exerciseParameter->getId() == $id;
+                return $exerciseParameter->getId() == $id and $exerciseParameter->getIsRemoved() === false;
             }
         )->first();
 
@@ -185,7 +185,7 @@ class ExerciseParametersController extends Controller
 
         $exerciseParameter = $exercise->getExerciseParameters()->filter(
             function ($exerciseParameter) use ($id) {
-                return $exerciseParameter->getId() == $id;
+                return $exerciseParameter->getId() == $id and $exerciseParameter->getIsRemoved() === false;
             }
         )->first();
 

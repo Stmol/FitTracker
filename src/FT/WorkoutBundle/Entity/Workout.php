@@ -78,16 +78,6 @@ class Workout
     private $removedAt;
 
     /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="FT\ExerciseBundle\Entity\ExerciseSet", mappedBy="workout", cascade={"persist"})
-     *
-     * @Serializer\SerializedName("sets");
-     * @Serializer\Expose
-     */
-    private $exerciseSets;
-
-    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="FT\UserBundle\Entity\User", inversedBy="workouts")
@@ -96,6 +86,16 @@ class Workout
      * @Serializer\Expose
      */
     private $user;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="WorkoutSet", mappedBy="workout")
+     *
+     * @Serializer\Expose
+     * @Serializer\SerializedName("sets")
+     */
+    private $workoutSets;
 
     public function __construct()
     {
@@ -226,41 +226,6 @@ class Workout
     }
 
     /**
-     * Add exerciseSet
-     *
-     * @param  ExerciseSet $exerciseSet
-     * @return Workout
-     */
-    public function addExerciseSet(ExerciseSet $exerciseSet)
-    {
-        $this->exerciseSets->add($exerciseSet);
-        $exerciseSet->setWorkout($this);
-
-        return $this;
-    }
-
-    /**
-     * Remove exerciseSet
-     *
-     * @param \FT\ExerciseBundle\Entity\ExerciseSet $exerciseSet
-     * @param ExerciseSet                           $exerciseSet
-     */
-    public function removeExerciseSet(ExerciseSet $exerciseSet)
-    {
-        $this->exerciseSets->removeElement($exerciseSet);
-    }
-
-    /**
-     * Get exerciseSets
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getExerciseSets()
-    {
-        return $this->exerciseSets;
-    }
-
-    /**
      * Set user
      *
      * @param User $user
@@ -281,5 +246,38 @@ class Workout
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Add workoutSet
+     *
+     * @param WorkoutSet $workoutSet
+     * @return Workout
+     */
+    public function addWorkoutSet(WorkoutSet $workoutSet)
+    {
+        $this->workoutSets[] = $workoutSet;
+
+        return $this;
+    }
+
+    /**
+     * Remove workoutSet
+     *
+     * @param WorkoutSet $workoutSet
+     */
+    public function removeWorkoutSet(WorkoutSet $workoutSet)
+    {
+        $this->workoutSets->removeElement($workoutSet);
+    }
+
+    /**
+     * Get workoutSets
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getWorkoutSets()
+    {
+        return $this->workoutSets;
     }
 }

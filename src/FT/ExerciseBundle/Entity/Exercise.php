@@ -76,7 +76,7 @@ class Exercise
      * @ORM\OneToMany(targetEntity="ExerciseParameter", mappedBy="exercise", cascade={"persist", "remove"})
      *
      * @Serializer\Expose
-     * @Serializer\SerializedName("parameters");
+     * @Serializer\SerializedName("parameters")
      */
     private $exerciseParameters;
     /**

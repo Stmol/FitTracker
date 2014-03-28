@@ -1,9 +1,6 @@
 api_exercises:
     resource: "@FTApiBundle/Resources/config/routing/exercises.yml"
 
-api_sets:
-    resource: "@FTApiBundle/Resources/config/routing/sets.yml"
-
 api_workouts:
     resource: "@FTApiBundle/Resources/config/routing/workouts.yml"
 
