@@ -102,6 +102,7 @@ class Workout
         $this->exerciseSets = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->isRemoved = false;
+        $this->workoutSets = new ArrayCollection();
     }
 
     /**
@@ -256,7 +257,10 @@ class Workout
      */
     public function addWorkoutSet(WorkoutSet $workoutSet)
     {
-        $this->workoutSets[] = $workoutSet;
+        if (!$this->workoutSets->contains($workoutSet)) {
+            $workoutSet->setWorkout($this);
+            $this->workoutSets->add($workoutSet);
+        }
 
         return $this;
     }

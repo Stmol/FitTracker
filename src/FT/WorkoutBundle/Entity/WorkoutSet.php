@@ -57,7 +57,7 @@ class WorkoutSet
     /**
      * @var \FT\WorkoutBundle\Entity\Workout
      *
-     * @ORM\ManyToOne(targetEntity="Workout", inversedBy="workoutSets")
+     * @ORM\ManyToOne(targetEntity="Workout", inversedBy="workoutSets", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      *
      * @Assert\NotBlank()
