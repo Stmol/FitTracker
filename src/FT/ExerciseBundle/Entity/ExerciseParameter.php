@@ -4,6 +4,7 @@ namespace FT\ExerciseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ExerciseParameterManager
@@ -37,7 +38,7 @@ class ExerciseParameter
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
-     *
+     * @Assert\NotBlank()
      * @Serializer\Expose
      */
     private $title;
@@ -46,7 +47,8 @@ class ExerciseParameter
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=255)
-     *
+     * @Assert\NotBlank()
+     * @Assert\Choice(callback="getTypeValues")
      * @Serializer\Expose
      */
     private $type;
@@ -82,7 +84,7 @@ class ExerciseParameter
      * @var Exercise
      *
      * @ORM\ManyToOne(targetEntity="Exercise", inversedBy="exerciseParameters")
-     *
+     * @Assert\NotBlank()
      * @Serializer\Expose
      */
     private $exercise;
@@ -202,16 +204,11 @@ class ExerciseParameter
     /**
      * Set Type
      *
-     * @param  string                    $type
-     * @throws \InvalidArgumentException
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
     {
-        if (!in_array($type, $this->getTypeValues())) {
-            throw new \InvalidArgumentException("Invalid kind");
-        }
-
         $this->type = $type;
 
         return $this;
@@ -220,7 +217,7 @@ class ExerciseParameter
     /**
      * @return array
      */
-    public function getTypeValues()
+    public static function getTypeValues()
     {
         return [
             self::TYPE_WEIGHT,
