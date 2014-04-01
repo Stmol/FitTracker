@@ -30,6 +30,7 @@ class WorkoutSet
      * @var integer
      *
      * @ORM\Column(name="sequence", type="smallint")
+     * @Assert\NotBlank(groups={"api"})
      */
     private $sequence;
 
@@ -59,7 +60,6 @@ class WorkoutSet
      *
      * @ORM\ManyToOne(targetEntity="Workout", inversedBy="workoutSets", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-     *
      * @Assert\NotBlank()
      */
     private $workout;
@@ -68,7 +68,6 @@ class WorkoutSet
      * @var \FT\ExerciseBundle\Entity\Exercise
      *
      * @ORM\ManyToOne(targetEntity="FT\ExerciseBundle\Entity\Exercise")
-     *
      * @Assert\NotBlank(groups={"api"})
      */
     private $exercise;

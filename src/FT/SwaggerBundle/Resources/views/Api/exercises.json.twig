@@ -1,0 +1,586 @@
+{
+  "resourcePath": "",
+  "basePath": "/api/1",
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.0",
+  "apis": [
+    {
+      "path": "/exercises",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить список упражнений",
+          "httpMethod": "GET",
+          "nickname": "exercises",
+          "responseClass": "ok",
+          "type": "Exercise",
+          "parameters": [
+            {
+              "name": "limit",
+              "description": "",
+              "required": false,
+              "dataType": "integer",
+              "paramType": "query",
+              "defaultValue": "50"
+            },
+            {
+              "name": "offset",
+              "description": "",
+              "required": false,
+              "dataType": "integer",
+              "paramType": "query",
+              "defaultValue": "0"
+            }
+          ]
+        },
+        {
+          "summary": "Создать упражнение",
+          "httpMethod": "POST",
+          "nickname": "exercise",
+          "responseClass": "ok",
+          "type": "Exercise",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Expression \"has_role('ROLE_API')\" denied access."
+            }
+          ],
+          "parameters": [
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "Exercise object",
+              "required": true,
+              "type": "Exercise",
+              "paramType": "body"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/exercises/{id}",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить упражнение по ID",
+          "httpMethod": "GET",
+          "nickname": "exercise",
+          "type": "Exercise",
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "summary": "Заменить упржанение",
+          "httpMethod": "PUT",
+          "nickname": "exercise",
+          "type": "Exercise",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "Exercise object",
+              "required": true,
+              "type": "Exercise",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Обновить упражнение",
+          "httpMethod": "PATCH",
+          "nickname": "exercise",
+          "type": "Exercise",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "Exercise object",
+              "required": true,
+              "type": "Exercise",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Удалить упражнение",
+          "httpMethod": "DELETE",
+          "nickname": "exercise",
+          "type": "Exercise",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/exercises/{id}/parameters",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить параметры упражнения",
+          "httpMethod": "GET",
+          "nickname": "exercise_parameters",
+          "type": "ExerciseParameter",
+          "responseMessages": [],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "summary": "Создать параметр упражнения",
+          "httpMethod": "POST",
+          "nickname": "exercise_parameter",
+          "type": "ExerciseParameter",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "Exercise object",
+              "required": true,
+              "type": "ExerciseParameter",
+              "paramType": "body"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/exercises/{exercise_id}/parameters/{id}",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить параметр упражнения",
+          "httpMethod": "GET",
+          "nickname": "exercise_parameter",
+          "type": "ExerciseParameter",
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            },
+            {
+              "code": 404,
+              "message": "Parameter not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "exercise_id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "ID параметра",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "summary": "Заменить параметр упражнения",
+          "httpMethod": "PUT",
+          "nickname": "exercise_parameter",
+          "type": "ExerciseParameter",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            },
+            {
+              "code": 404,
+              "message": "Parameter not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "exercise_id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "ID параметра",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "ExerciseParameter object",
+              "required": true,
+              "type": "ExerciseParameter",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Обновить параметр упражнения",
+          "httpMethod": "PATCH",
+          "nickname": "exercise_parameter",
+          "type": "ExerciseParameter",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            },
+            {
+              "code": 404,
+              "message": "Parameter not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "exercise_id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "ID параметра",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "ExerciseParameter object",
+              "required": true,
+              "type": "ExerciseParameter",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Удалить параметр упражнения",
+          "httpMethod": "DELETE",
+          "nickname": "exercise_parameter",
+          "type": "ExerciseParameter",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Exercise not found"
+            },
+            {
+              "code": 404,
+              "message": "Parameter not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "exercise_id",
+              "description": "ID упражнения",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "ID параметра",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "Exercise": {
+      "id": "Exercise",
+      "required": [
+        "id",
+        "title",
+        "user"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "ExerciseParameter"
+        },
+        "user": {
+          "$ref": "User"
+        }
+      }
+    },
+    "ExerciseParameter": {
+      "id": "ExerciseParameter",
+      "required": [
+        "id",
+        "title",
+        "type",
+        "exercise",
+        "user"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "time",
+            "distance",
+            "quantity",
+            "weight"
+          ]
+        },
+        "exercise": {
+          "type": "_Exercise"
+        },
+        "user": {
+          "$ref": "User"
+        }
+      }
+    },
+    "User": {
+      "id": "User",
+      "required": [
+        "id",
+        "username",
+        "password"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

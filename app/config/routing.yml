@@ -5,3 +5,7 @@ ft_front:
 ft_api:
     resource: "@FTApiBundle/Resources/config/routing.yml"
     prefix:   /api/1
+
+ft_swagger:
+    resource: "@FTSwaggerBundle/Resources/config/routing.yml"
+    prefix:   /api/swagger

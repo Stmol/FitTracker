@@ -1,0 +1,113 @@
+{
+  "resourcePath": "",
+  "basePath": "/api/1",
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.0",
+  "apis": [
+    {
+      "path": "/users",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить список пользователей",
+          "httpMethod": "GET",
+          "nickname": "users",
+          "responseClass": "ok",
+          "type": "User",
+          "parameters": [
+            {
+              "name": "limit",
+              "description": "",
+              "required": false,
+              "dataType": "integer",
+              "paramType": "query",
+              "defaultValue": "50"
+            },
+            {
+              "name": "offset",
+              "description": "",
+              "required": false,
+              "dataType": "integer",
+              "paramType": "query",
+              "defaultValue": "0"
+            }
+          ]
+        },
+        {
+          "summary": "Создать пользователя",
+          "httpMethod": "POST",
+          "nickname": "user",
+          "responseClass": "ok",
+          "type": "User",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Expression \"has_role('ROLE_API')\" denied access."
+            }
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "description": "User object",
+              "required": true,
+              "type": "User",
+              "paramType": "body"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/users/{id}",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить пользователя по ID",
+          "httpMethod": "GET",
+          "nickname": "user",
+          "type": "User",
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "User not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID пользователя",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "User": {
+      "id": "User",
+      "required": [
+        "id",
+        "username",
+        "password"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "plain_password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

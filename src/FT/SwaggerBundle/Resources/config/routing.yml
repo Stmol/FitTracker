@@ -1,0 +1,23 @@
+ft_swagger_homepage:
+    path:  /
+    methods: [GET]
+    defaults:
+        _controller: FTSwaggerBundle:Default:index
+
+ft_swagger_apidocs:
+    path: /api-docs
+    methods: [GET]
+    defaults:
+        _controller: FTSwaggerBundle:Default:apidocs
+        _format: json
+    requirements:
+        _format: json
+
+ft_swagger_apidocs_api:
+    path: /api-docs/{apiName}
+    methods: [GET]
+    defaults:
+        _controller: FTSwaggerBundle:Default:api
+        _format: json
+    requirements:
+        _format: json

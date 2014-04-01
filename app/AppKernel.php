@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new FT\FrontBundle\FTFrontBundle(),
             new FT\ApiBundle\FTApiBundle(),
             new FT\UserBundle\FTUserBundle(),
+            new FT\SwaggerBundle\FTSwaggerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

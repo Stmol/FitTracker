@@ -1,0 +1,987 @@
+{
+  "resourcePath": "",
+  "basePath": "/api/1",
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.0",
+  "apis": [
+    {
+      "path": "/workouts",
+      "description": "",
+      "operations": [
+        {
+          "parameters": [
+            {
+              "name": "limit",
+              "description": "",
+              "required": false,
+              "dataType": "integer",
+              "paramType": "query",
+              "defaultValue": "50"
+            },
+            {
+              "name": "offset",
+              "description": "",
+              "required": false,
+              "dataType": "integer",
+              "paramType": "query",
+              "defaultValue": "0"
+            }
+          ],
+          "summary": "Получить список тренировок",
+          "httpMethod": "GET",
+          "nickname": "workouts",
+          "responseClass": "ok",
+          "type": "Workout"
+        },
+        {
+          "summary": "Создать тренировку",
+          "httpMethod": "POST",
+          "nickname": "workout",
+          "responseClass": "ok",
+          "type": "Workout",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Expression \"has_role('ROLE_API')\" denied access."
+            }
+          ],
+          "parameters": [
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "Workout object",
+              "required": true,
+              "type": "Workout",
+              "paramType": "body"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/workouts/{id}",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить тренировку по ID",
+          "httpMethod": "GET",
+          "nickname": "workout",
+          "type": "Workout",
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Workout not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID тренировки",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "summary": "Заменить тренировку",
+          "httpMethod": "PUT",
+          "nickname": "workout",
+          "type": "Workout",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID тренировки",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "Workout object",
+              "required": true,
+              "type": "Workout",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Обновить тренировку",
+          "httpMethod": "PATCH",
+          "nickname": "workout",
+          "type": "Workout",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID тренировки",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "Workout object",
+              "required": true,
+              "type": "Workout",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Удалить тренировку",
+          "httpMethod": "DELETE",
+          "nickname": "workout",
+          "type": "Workout",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID тренировки",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/workouts/{workout_id}/sets",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить подходы тренировки",
+          "httpMethod": "GET",
+          "nickname": "workouts_sets",
+          "responseClass": "ok",
+          "type": "WorkoutSet",
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "dataType": "integer",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "summary": "Создать подход для тренировки",
+          "httpMethod": "POST",
+          "nickname": "workout_set",
+          "responseClass": "ok",
+          "type": "WorkoutSet",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "paramType": "path",
+              "dataType": "string"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "WorkoutSet object",
+              "required": true,
+              "type": "WorkoutSet",
+              "paramType": "body"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/workouts/{workout_id}/sets/{id}",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить подход упражнения по ID",
+          "httpMethod": "GET",
+          "nickname": "workout_set",
+          "type": "WorkoutSet",
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "Set ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "summary": "Заменить подход тренировки",
+          "httpMethod": "PUT",
+          "nickname": "workout_set",
+          "type": "WorkoutSet",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "Set ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "WorkoutSet object",
+              "required": true,
+              "type": "WorkoutSet",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Обновить подход тренировки",
+          "httpMethod": "PATCH",
+          "nickname": "workout_set",
+          "type": "WorkoutSet",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "Set ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "WorkoutSet object",
+              "required": true,
+              "type": "WorkoutSet",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Удалить подход тренировки",
+          "httpMethod": "DELETE",
+          "nickname": "workout_set",
+          "type": "WorkoutSet",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "Set ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/workouts/{workout_id}/sets/{set_id}/parameters",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить параметры подхода",
+          "httpMethod": "GET",
+          "nickname": "workouts_set_parameters",
+          "responseClass": "ok",
+          "type": "SetParameter",
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "dataType": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "set_id",
+              "description": "Set ID",
+              "required": true,
+              "dataType": "integer",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "summary": "Добавить параметр для подхода",
+          "httpMethod": "POST",
+          "nickname": "workout_set_parameter",
+          "responseClass": "ok",
+          "type": "SetParameter",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "paramType": "path",
+              "dataType": "string"
+            },
+            {
+              "name": "set_id",
+              "description": "Set ID",
+              "required": true,
+              "paramType": "path",
+              "dataType": "string"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "SetParameter object",
+              "required": true,
+              "type": "SetParameter",
+              "paramType": "body"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/workouts/{workout_id}/sets/{set_id}/parameters/{id}",
+      "description": "",
+      "operations": [
+        {
+          "summary": "Получить парамерт подхода по ID",
+          "httpMethod": "GET",
+          "nickname": "workout_set_parameter",
+          "type": "SetParameter",
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            },
+            {
+              "code": 404,
+              "message": "Parameter not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "set_id",
+              "description": "Set ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "Parameter ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "summary": "Заменить параметр подхода",
+          "httpMethod": "PUT",
+          "nickname": "workout_set_parameter",
+          "type": "SetParameter",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            },
+            {
+              "code": 404,
+              "message": "Parameter not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "set_id",
+              "description": "Set ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "Parameter ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "SetParameter object",
+              "required": true,
+              "type": "SetParameter",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Обновить параметр подхода",
+          "httpMethod": "PATCH",
+          "nickname": "workout_set_parameter",
+          "type": "SetParameter",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            },
+            {
+              "code": 404,
+              "message": "Parameter not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "set_id",
+              "description": "Set ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "Parameter ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            },
+            {
+              "name": "body",
+              "description": "SetParameter object",
+              "required": true,
+              "type": "SetParameter",
+              "paramType": "body"
+            }
+          ]
+        },
+        {
+          "summary": "Удалить параметр подхода",
+          "httpMethod": "DELETE",
+          "nickname": "workout_set_parameter",
+          "type": "SetParameter",
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Validation Failed"
+            },
+            {
+              "code": 403,
+              "message": "Token not found"
+            },
+            {
+              "code": 403,
+              "message": "Forbidden"
+            },
+            {
+              "code": 404,
+              "message": "Workout not found"
+            },
+            {
+              "code": 404,
+              "message": "Set not found"
+            },
+            {
+              "code": 404,
+              "message": "Parameter not found"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "workout_id",
+              "description": "Workout ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },{
+              "name": "set_id",
+              "description": "Set ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "id",
+              "description": "Parameter ID",
+              "required": true,
+              "type": "integer",
+              "paramType": "path"
+            },
+            {
+              "name": "token",
+              "description": "User token",
+              "required": true,
+              "paramType": "query",
+              "dataType": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "Workout": {
+      "id": "Workout",
+      "required": [
+        "id",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "sets": {
+          "type": "Set"
+        },
+        "user": {
+          "$ref": "User"
+        }
+      }
+    },
+    "Exercise": {
+      "id": "Exercise",
+      "required": [
+        "id",
+        "title",
+        "user"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "ExerciseParameter"
+        },
+        "user": {
+          "$ref": "User"
+        }
+      }
+    },
+    "ExerciseParameter": {
+      "id": "ExerciseParameter",
+      "required": [
+        "id",
+        "title",
+        "type",
+        "exercise",
+        "user"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "time",
+            "distance",
+            "quantity",
+            "weight"
+          ]
+        },
+        "exercise": {
+          "type": "_Exercise"
+        },
+        "user": {
+          "$ref": "User"
+        }
+      }
+    },
+    "User": {
+      "id": "User",
+      "required": [
+        "id",
+        "username",
+        "password"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "WorkoutSet": {
+      "id": "WorkoutSet",
+      "required": [
+        "id",
+        "workout",
+        "exercise"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "sequence": {
+          "type": "ineteger"
+        },
+        "workout": {
+          "type": "_Workout"
+        },
+        "exercise": {
+          "type": "Exercise"
+        },
+        "parameters": {
+          "type": "SetParameter"
+        }
+      }
+    },
+    "SetParameter": {
+      "id": "SetParameter",
+      "required": [
+        "id",
+        "value",
+        "exercise_parameter",
+        "set"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        },
+        "exerciseParameter": {
+          "type": "ExerciseParameter"
+        },
+        "set": {
+          "type": "_WorkoutSet"
+        }
+      }
+    }
+  }
+}
