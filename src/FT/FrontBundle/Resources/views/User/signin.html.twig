@@ -1,0 +1,38 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+  <div class="col-md-4 col-md-offset-4">
+    <h3>{{ 'user.signin.caption'|trans }}</h3>
+    {% if error %}
+      <div class="alert alert-warning">{{ error.message|trans }}</div>
+    {% endif %}
+
+    <form action="{{ path('users_auth') }}" method="post">
+      <div class="form-group">
+        <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="_username"
+            placeholder="{{ 'user.signin.placeholder.username'|trans }}"
+            value="{{ last_username }}"/>
+      </div>
+      <div class="form-group">
+        <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="{{ 'user.signin.placeholder.password'|trans }}"
+            name="_password"/>
+      </div>
+      <div class="checkbox">
+          <input
+              type="checkbox"
+              id="remember_me"
+              name="_remember_me" />
+          <label for="remember_me">{{ 'user.signin.remember_me'|trans }}</label>
+      </div>
+      <button type="submit" class="btn btn-default btn-block">{{ 'user.signin.signin'|trans }}</button>
+    </form>
+  </div>
+{% endblock %}

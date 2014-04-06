@@ -13,6 +13,7 @@ use FT\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FT\UserBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * Class UserController
@@ -21,11 +22,45 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserController extends Controller
 {
-    public function signinAction()
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction()
     {
-        return $this->render('FTFrontBundle:User:signin.html.twig');
+        $users = $this->getUserManager()->findUsersLimited(50, 0);
+
+        return $this->render('FTFrontBundle:User:index.html.twig', [
+            'users' => $users,
+        ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function signinAction(Request $request)
+    {
+        $session = $request->getSession();
+
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(
+                SecurityContext::AUTHENTICATION_ERROR
+            );
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        return $this->render('FTFrontBundle:User:signin.html.twig', [
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error,
+        ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function signupAction()
     {
         $user = $this->getUserManager()->createUser();
@@ -36,6 +71,10 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function createAction(Request $request)
     {
         $user = $this->getUserManager()->createUser();
@@ -54,6 +93,10 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @param User $user
+     * @return \Symfony\Component\Form\Form
+     */
     private function createUserForm(User $user)
     {
         $form = $this->createForm(new UserType(), $user, [

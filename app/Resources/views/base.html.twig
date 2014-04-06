@@ -18,23 +18,57 @@
 </head>
 <body>
 {% block body %}
+{% block menu %}
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{{ path('ft_front_index') }}">FitTracker</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li {% if app.request.get('_route') == 'exercises' %}class="active"{% endif %}>
+            <a href="{{ path('exercises') }}">{{ 'base.exercise_list'|trans }}</a></li>
+          <li {% if app.request.get('_route') == 'workouts' %}class="active"{% endif %}>
+            <a href="{{ path('workouts') }}">{{ 'base.workout_list'|trans }}</a></li>
+          <li {% if app.request.get('_route') == 'users' %}class="active"{% endif %}>
+            <a href="{{ path('users') }}">{{ 'base.user_list'|trans }}</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if app.user %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <b
+                    class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Start training</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ path('users_sign_out') }}">{{ 'base.sign_out'|trans }}</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li {% if app.request.get('_route') == 'users_sign_up' %}class="active"{% endif %}>
+              <a href="{{ path('users_sign_up') }}">{{ 'base.sign_up'|trans }}</a>
+            </li>
+            <li {% if app.request.get('_route') == 'users_sign_in' %}class="active"{% endif %}>
+              <a href="{{ path('users_sign_in') }}">{{ 'base.sign_in'|trans }}</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock menu %}
+
 <div class="container">
-  {% block menu %}
-    <ul>
-      <li><a href="{{ path('exercises') }}">{{ 'base.exercise_list'|trans }}</a></li>
-      <li><a href="{{ path('workouts') }}">{{ 'base.workout_list'|trans }}</a></li>
-    </ul>
-  {% endblock menu %}
-
   {% block content '' %}
-
-  {% block javascripts %}
-    {#<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>#}
-    {% javascripts '@js_vendor' '@bootstrap_js' %}
-      <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-  {% endblock javascripts %}
 </div>
+
+{% block javascripts %}
+{#<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>#}
+{% javascripts '@js_vendor' '@bootstrap_js' %}
+  <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock javascripts %}
 {% endblock %}
 </body>
 </html>

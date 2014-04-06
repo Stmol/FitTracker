@@ -9,3 +9,9 @@ ft_front_workouts:
 ft_front_users:
     resource: "@FTFrontBundle/Resources/config/routing/users.yml"
     prefix: /users
+
+ft_front_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: FTFrontBundle:Default:index

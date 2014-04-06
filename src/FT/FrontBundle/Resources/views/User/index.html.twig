@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+  <table class="table">
+    <thead>
+    <tr>
+      <th>{{ 'user.index.list.username'|trans }}</th>
+      <th>{{ 'user.index.list.created_at'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+      <tr>
+        <td><a href="#">{{ user.username }}</a></td>
+        <td>{{ user.createdAt|date() }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -66,16 +66,33 @@ workout:
         exercises_exist: Доступные упражнения
 
 user:
+    index:
+        list:
+            username: Пользователь
+            created_at: Дата регистрации
     signup:
         caption: Регистрация
         agreement: Принимаю пользовательское соглашение
         placeholder:
             username: Имя пользователя
             password: Пароль
-        signup:
-            Зарегистрироваться
+        signup: Зарегистрироваться
+    signin:
+        caption: Логин
+        placeholder:
+            username: Имя пользователя
+            password: Пароль
+        signin: Войти
+        remember_me: Запомнить меня
 
 # Base view
 base:
     exercise_list: Упражнения
     workout_list: Тренировки
+    user_list: Пользователи
+    sign_up: Регистрация
+    sign_in: Вход
+    sign_out: Выход
+
+# System
+"Bad credentials": Неправильное имя пользователя или пароль

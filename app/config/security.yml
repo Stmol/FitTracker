@@ -11,7 +11,9 @@ security:
 
     providers:
         ft_user:
-            entity: { class: FT\UserBundle\Entity\User }
+            entity:
+                class: FT\UserBundle\Entity\User
+                property: username
 
     firewalls:
         dev:
@@ -23,14 +25,19 @@ security:
             security: false
 
         secured_area:
-            pattern:    ^/demo/secured/
+            pattern: ^/
+            anonymous: ~
             form_login:
-                check_path: _security_check
-                login_path: _demo_login
+                login_path: /users/sign_in
+                check_path: /users/auth
             logout:
-                path:   _demo_logout
-                target: _demo
-            #anonymous: ~
+                path: /users/sign_out
+                target: /
+            remember_me:
+                key: "%secret%"
+                lifetime: 2592000
+                path: /
+                domain: ~
             #http_basic:
             #    realm: "Secured Demo Area"
 

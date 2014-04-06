@@ -10,6 +10,18 @@ users_sign_in:
     defaults:
         _controller: "FTFrontBundle:User:signin"
 
+users_sign_out:
+    path: /sign_out
+
+users_auth:
+    path: /auth
+
+users:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:User:index"
+
 users_create:
     path: /
     methods: [POST]
