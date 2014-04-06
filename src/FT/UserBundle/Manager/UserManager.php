@@ -9,8 +9,7 @@
 
 namespace FT\UserBundle\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use FT\AppBundle\Manager\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use FT\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,12 +19,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @package FT\UserBundle\Manager
  * @author Yury Smidovich <dev@stmol.me>
  */
-class UserManager implements EntityManagerInterface
+class UserManager
 {
     /**
-     * @var ObjectManager
+     * @var \Doctrine\ORM\EntityManager
      */
-    private $objectManager;
+    private $entityManager;
 
     /**
      * @var \Symfony\Component\Security\Core\Encoder\EncoderFactory
@@ -33,19 +32,26 @@ class UserManager implements EntityManagerInterface
     private $encoderFactory;
 
     /**
-     * @param ObjectManager  $objectManager
-     * @param EncoderFactory $encoderFactory
+     * @var \Doctrine\ORM\EntityRepository
      */
-    public function __construct(ObjectManager $objectManager, EncoderFactory $encoderFactory)
+    private $repository;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param EncoderFactory $encoderFactory
+     * @param $className
+     */
+    public function __construct(EntityManager $entityManager, EncoderFactory $encoderFactory, $className)
     {
-        $this->objectManager = $objectManager;
+        $this->entityManager = $entityManager;
         $this->encoderFactory = $encoderFactory;
+        $this->repository = $entityManager->getRepository($className);
     }
 
     /**
      * @return User
      */
-    public function create()
+    public function createUser()
     {
         return new User();
     }
@@ -54,22 +60,27 @@ class UserManager implements EntityManagerInterface
      * @param $user
      * @param bool $flush
      */
-    public function save($user, $flush = true)
+    public function saveUser(User $user, $flush = true)
     {
         $this->updatePassword($user);
-        $this->objectManager->persist($user);
+        $this->entityManager->persist($user);
 
         if ($flush) {
-            $this->objectManager->flush();
+            $this->entityManager->flush();
         }
     }
 
     /**
-     * @param $entity
+     * @param \FT\UserBundle\Entity\User $user
+     * @param bool $flush
      */
-    public function delete($entity)
+    public function deleteUser(User $user, $flush = true)
     {
-        // TODO: Implement delete() method.
+        $user
+            ->setIsRemoved(true)
+            ->setRemovedAt(new \DateTime());
+
+        $this->saveUser($user, $flush);
     }
 
     /**
@@ -87,22 +98,33 @@ class UserManager implements EntityManagerInterface
      * @param $id
      * @return User
      */
-    public function getOneById($id)
+    public function findUserById($id)
     {
-        return $this->objectManager
-            ->getRepository('FTUserBundle:User')
-            ->find($id);
+        return $this->repository
+            ->createQueryBuilder('u')
+            ->where('u.isRemoved = :isRemoved')
+            ->andWhere('u.id = :id')
+            ->setParameter('isRemoved', false)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     /**
      * @param $limit
      * @param $offset
+     * @return array|null
      */
-    public function getAllLimited($limit, $offset)
+    public function findUsersLimited($limit = null, $offset = null)
     {
-        return $this->objectManager
-            ->getRepository('FTUserBundle:User')
-            ->findAllLimited($limit, $offset);
+        return $this->repository
+            ->createQueryBuilder('u')
+            ->where('u.isRemoved = :isRemoved')
+            ->setParameter('isRemoved', false)
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->execute();
     }
 
     /**
@@ -112,14 +134,19 @@ class UserManager implements EntityManagerInterface
      * @param $password
      * @return User|null
      */
-    public function getOneByCredentials($username, $password)
+    public function findUserByCredentials($username, $password)
     {
         /** @var User $user */
-        $user = $this->objectManager
-            ->getRepository('FTUserBundle:User')
-            ->findOneBy(['username' => $username]);
+        $user = $this->repository
+            ->createQueryBuilder('u')
+            ->where('u.username = :username')
+            ->andWhere('u.isRemoved = :isRemoved')
+            ->setParameter('username', $username)
+            ->setParameter('isRemoved', false)
+            ->getQuery()
+            ->getOneOrNullResult();
 
-        if (!$user) {
+        if (!$user instanceof User) {
             return null;
         }
 

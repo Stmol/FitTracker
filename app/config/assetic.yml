@@ -25,3 +25,13 @@ assetic:
                 - "%kernel.root_dir%/../bower_components/jquery/dist/jquery.min.js"
                 - "%kernel.root_dir%/../bower_components/underscore/underscore.js"
                 - "%kernel.root_dir%/../bower_components/backbone/backbone.js"
+
+        bootstrap_css:
+            output: "css/bootstrap.css"
+            inputs:
+                - "%kernel.root_dir%/../bower_components/bootstrap/less/bootstrap.less"
+
+        bootstrap_js:
+            output: "js/bootstrap.js"
+            inputs:
+                - "%kernel.root_dir%/../bower_components/bootstrap/js/*"

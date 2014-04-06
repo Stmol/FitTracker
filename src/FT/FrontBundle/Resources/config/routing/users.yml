@@ -1,0 +1,17 @@
+users_sign_up:
+    path: /sign_up
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:User:signup"
+
+users_sign_in:
+    path: /sign_in
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:User:signin"
+
+users_create:
+    path: /
+    methods: [POST]
+    defaults:
+        _controller: "FTFrontBundle:User:create"

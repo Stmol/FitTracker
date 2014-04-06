@@ -33,6 +33,9 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
+    form:
+        resources:
+            - 'FTFrontBundle:Form:errors.html.twig'
 
 # Doctrine Configuration
 doctrine:

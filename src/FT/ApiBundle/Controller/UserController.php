@@ -34,7 +34,7 @@ class UserController extends FOSRestController
         $offset = $request->query->get('offset', 0);
 
         $users = $this->getEntityManager()
-            ->getAllLimited($limit, $offset);
+            ->findUsersLimited($limit, $offset);
 
         return $users;
     }
@@ -47,13 +47,13 @@ class UserController extends FOSRestController
      */
     public function createAction(Request $request)
     {
-        $user = $this->getEntityManager()->create();
+        $user = $this->getEntityManager()->createUser();
         $form = $this->createUserForm($user);
 
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            $this->getEntityManager()->save($user);
+            $this->getEntityManager()->saveUser($user);
 
             return $user;
         }
@@ -70,7 +70,7 @@ class UserController extends FOSRestController
      */
     public function readAction($id)
     {
-        $user = $this->getEntityManager()->getOneById($id);
+        $user = $this->getEntityManager()->findUserById($id);
 
         if (!$user) {
             throw $this->createNotFoundException();

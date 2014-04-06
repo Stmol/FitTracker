@@ -1,7 +1,12 @@
 parameters:
+    ft_user.entity.user.class: FT\UserBundle\Entity\User
+
     ft_user.manager.user.class: FT\UserBundle\Manager\UserManager
 
 services:
     ft_user.manager.user:
         class: %ft_user.manager.user.class%
-        arguments: [@doctrine.orm.entity_manager, @security.encoder_factory]
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @security.encoder_factory
+            - %ft_user.entity.user.class%

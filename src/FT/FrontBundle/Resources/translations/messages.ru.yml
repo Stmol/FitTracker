@@ -65,6 +65,15 @@ workout:
     exercises_edit:
         exercises_exist: Доступные упражнения
 
+user:
+    signup:
+        caption: Регистрация
+        agreement: Принимаю пользовательское соглашение
+        placeholder:
+            username: Имя пользователя
+            password: Пароль
+        signup:
+            Зарегистрироваться
 
 # Base view
 base:

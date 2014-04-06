@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+  <div class="col-md-4 col-md-offset-4">
+    <h2>{{ 'user.signup.caption'|trans }}</h2>
+
+    {{ form_errors(form) }}
+
+    {{ form_start(form, { 'attr': { 'novalidate': 'novalidate' } }) }}
+    <div class="form-group">
+      {{ form_widget(form.username, { 'attr':
+      { 'class': 'form-control', 'placeholder': 'user.signup.placeholder.username'|trans }
+      }) }}
+      {{ form_errors(form.username) }}
+    </div>
+
+    <div class="form-group">
+      {{ form_widget(form.plainPassword, { 'attr':
+      { 'class': 'form-control', 'placeholder': 'user.signup.placeholder.password'|trans }
+      }) }}
+      {{ form_errors(form.plainPassword) }}
+
+    </div>
+
+    <label class="checkbox">
+      {{ form_widget(form.agreement) }} {{ form_label(form.agreement) }}
+      {{ form_errors(form.agreement) }}
+    </label>
+    {{ form_widget(form.signup, { 'attr': { 'class': 'btn btn-default btn-block' } }) }}
+    {{ form_end(form) }}
+  </div>
+{% endblock %}

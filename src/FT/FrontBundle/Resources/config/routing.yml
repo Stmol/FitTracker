@@ -1,7 +1,11 @@
 ft_front_exercises:
-    resource: "@FTFrontBundle/Resources/config/routing/exercise.yml"
-    prefix:   /exercises
+    resource: "@FTFrontBundle/Resources/config/routing/exercises.yml"
+    prefix: /exercises
 
 ft_front_workouts:
-    resource: "@FTFrontBundle/Resources/config/routing/workout.yml"
-    prefix:   /workouts
+    resource: "@FTFrontBundle/Resources/config/routing/workouts.yml"
+    prefix: /workouts
+
+ft_front_users:
+    resource: "@FTFrontBundle/Resources/config/routing/users.yml"
+    prefix: /users

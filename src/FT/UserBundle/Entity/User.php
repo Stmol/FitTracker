@@ -16,9 +16,13 @@ use FT\WorkoutBundle\Entity\Workout;
  * User
  *
  * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass="FT\UserBundle\Entity\Repository\UserRepository")
+ * @ORM\Entity()
  *
- * @Unique(fields={"username"}, groups={"registration"})
+ * @Unique(
+ *      "username",
+ *       message="ft_user.username.already_used",
+ *       groups={"registration"}
+ * )
  *
  * @Serializer\ExclusionPolicy("all")
  */
@@ -34,32 +38,35 @@ class User implements UserInterface
      * @Serializer\Expose
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
      *
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank(message="ft_user.username.blank", groups={"registration"})
+     * @Assert\Length(
+     *      min="2",
+     *      max="30",
+     *      minMessage="ft_user.username.short",
+     *      maxMessage="ft_user.username.long",
+     *      groups={"registration"}
+     * )
      *
      * @Serializer\Expose
      */
     private $username;
-
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
-
     /**
      * @var string
      *
      * @ORM\Column(name="salt", type="string", length=255)
      */
     private $salt;
-
     /**
      * @var \DateTime
      *
@@ -68,22 +75,39 @@ class User implements UserInterface
      * @Serializer\Expose
      */
     private $createdAt;
-
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="removed_at", type="datetimetz", nullable=true)
+     *
+     * @Serializer\Expose
+     */
+    private $removedAt;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_removed", type="boolean")
+     *
+     * @Serializer\Expose
+     */
+    private $isRemoved;
     /**
      * @var string
      *
-     * @Assert\NotBlank(groups={"registration"})
-     * @Assert\Length(min="5", max="4096", groups={"registration"})
+     * @Assert\NotBlank(message="ft_user.plain_password.blank", groups={"registration"})
+     * @Assert\Length(
+     *      min="5",
+     *      minMessage="ft_user.plain_password.short",
+     *      groups={"registration"}
+     * )
      */
     private $plainPassword;
-
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="\FT\ExerciseBundle\Entity\Exercise", mappedBy="user")
      */
     private $exercises;
-
     /**
      * @var ArrayCollection
      *
@@ -96,6 +120,7 @@ class User implements UserInterface
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->createdAt = new \DateTime();
         $this->exercises = new ArrayCollection();
+        $this->isRemoved = false;
     }
 
     /**
@@ -267,7 +292,7 @@ class User implements UserInterface
     /**
      * Remove exercises
      *
-     * @param Exercise $exercise
+     * @param \FT\ExerciseBundle\Entity\Exercise $exercise
      */
     public function removeExercise(Exercise $exercise)
     {
@@ -315,5 +340,51 @@ class User implements UserInterface
     public function getWorkouts()
     {
         return $this->workouts;
+    }
+
+    /**
+     * Get removedAt
+     *
+     * @return \DateTime
+     */
+    public function getRemovedAt()
+    {
+        return $this->removedAt;
+    }
+
+    /**
+     * Set removedAt
+     *
+     * @param \DateTime $removedAt
+     * @return User
+     */
+    public function setRemovedAt($removedAt)
+    {
+        $this->removedAt = $removedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get isRemoved
+     *
+     * @return boolean
+     */
+    public function getIsRemoved()
+    {
+        return $this->isRemoved;
+    }
+
+    /**
+     * Set isRemoved
+     *
+     * @param boolean $isRemoved
+     * @return User
+     */
+    public function setIsRemoved($isRemoved)
+    {
+        $this->isRemoved = $isRemoved;
+
+        return $this;
     }
 }

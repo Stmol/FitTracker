@@ -30,7 +30,7 @@ workouts_create:
     path:  /
     methods: [POST]
     defaults:
-        _controller: "FTFrontBundle:Workout:create"
+        _controller: "FTFrontBundle:Workout:createExercise"
 
 workouts_update:
     path:  /{id}
@@ -44,6 +44,22 @@ workouts_delete:
     path:  /{id}
     methods: [POST, DELETE]
     defaults:
-        _controller: "FTFrontBundle:Workout:delete"
+        _controller: "FTFrontBundle:Workout:deleteExercise"
+    requirements:
+        id: \d+
+
+workouts_exercises_update:
+    path: /{id}/exercises
+    methods: [POST, PUT]
+    defaults:
+        _controller: "FTFrontBundle:Workout:exercisesUpdate"
+    requirements:
+        id: \d+
+
+workouts_exercises_edit:
+    path: /{id}/exercises/edit
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:Workout:exercisesEdit"
     requirements:
         id: \d+
