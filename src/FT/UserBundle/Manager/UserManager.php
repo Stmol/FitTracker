@@ -49,6 +49,14 @@ class UserManager
     }
 
     /**
+     * @return \FT\UserBundle\Entity\UserRepository
+     */
+    public function getUserRepository()
+    {
+        return $this->repository;
+    }
+
+    /**
      * @return User
      */
     public function createUser()

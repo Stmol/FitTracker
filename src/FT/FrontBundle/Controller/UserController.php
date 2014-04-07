@@ -9,6 +9,7 @@
 
 namespace FT\FrontBundle\Controller;
 
+use FT\FrontBundle\Service\Paginator;
 use FT\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FT\UserBundle\Form\Type\UserType;
@@ -22,15 +23,28 @@ use Symfony\Component\Security\Core\SecurityContext;
  */
 class UserController extends Controller
 {
+    /** Limit for paginator */
+    const USERS_PER_PAGE = 25;
+
     /**
+     * List of all Users
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $users = $this->getUserManager()->findUsersLimited(50, 0);
+        $paginator = new Paginator();
+
+        $users = $paginator->paginate(
+            $this->getUserManager()->getUserRepository()->getUsersQBOrderBy('username'),
+            $request->query->get('page', 1),
+            self::USERS_PER_PAGE
+        );
 
         return $this->render('FTFrontBundle:User:index.html.twig', [
-            'users' => $users,
+            'users'     => $users,
+            'paginator' => $paginator,
         ]);
     }
 

@@ -17,4 +17,8 @@
     {% endfor %}
     </tbody>
   </table>
+
+  {% if users|length > 0 and paginator.totalPages > 1 %}
+    {{ include('FTFrontBundle:Common:pagination.html.twig', { 'paginator': paginator }) }}
+  {% endif %}
 {% endblock %}

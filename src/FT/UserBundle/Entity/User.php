@@ -16,7 +16,7 @@ use FT\WorkoutBundle\Entity\Workout;
  * User
  *
  * @ORM\Table(name="users")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="FT\UserBundle\Entity\UserRepository")
  *
  * @Unique(
  *      "username",
@@ -50,6 +50,12 @@ class User implements UserInterface
      *      minMessage="ft_user.username.short",
      *      maxMessage="ft_user.username.long",
      *      groups={"registration"}
+     * )
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z0-9]+$/i",
+     *     htmlPattern = "^[a-zA-Z0-9]+$",
+     *     message="ft_user.username.only_english",
+     *     groups={"registration"}
      * )
      *
      * @Serializer\Expose
