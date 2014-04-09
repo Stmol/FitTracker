@@ -65,7 +65,7 @@ class ExerciseParameter
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="removed_at", type="datetimetz", nullable=true)
+     * @ORM\Column(name="removed_at", type="datetime", nullable=true)
      *
      * @Serializer\Expose
      */
@@ -74,7 +74,7 @@ class ExerciseParameter
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetimetz")
+     * @ORM\Column(name="created_at", type="datetime")
      *
      * @Serializer\Expose
      */
