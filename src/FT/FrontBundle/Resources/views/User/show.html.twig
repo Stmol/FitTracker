@@ -1,0 +1,34 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-2">
+      <img src="http://placehold.it/140&text={{ user.username }}" class="img-circle">
+    </div>
+    <div class="col-md-10">
+      <h2>{{ user.username }}{% if app.user == user %}
+          <small>{{ 'user.show.its_you'|trans }}</small>{% endif %}</h2>
+      {% if app.user != user %}
+        {{ form(form) }}
+      {% endif %}
+    </div>
+  </div>
+  {% if followers|length > 0 %}
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Подписчики</h3>
+        <ul>
+          {% for link in followers %}
+            <li>
+              <a href="{{ path('users_show', { 'username': link.follower.username }) }}">
+                {{ link.follower.username }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+

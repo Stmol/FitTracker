@@ -32,7 +32,7 @@ class UserManager
     private $encoderFactory;
 
     /**
-     * @var \Doctrine\ORM\EntityRepository
+     * @var \FT\UserBundle\Entity\UserRepository
      */
     private $repository;
 
@@ -114,6 +114,23 @@ class UserManager
             ->andWhere('u.id = :id')
             ->setParameter('isRemoved', false)
             ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $username
+     * @param bool $isRemoved
+     * @return null|\FT\UserBundle\Entity\User
+     */
+    public function findUserByUsername($username, $isRemoved = false)
+    {
+        $queryBuilder = $this->repository
+            ->getUsersQueryBuilder($isRemoved);
+
+        return $queryBuilder
+            ->andWhere('u.username = :username')
+            ->setParameter('username', $username)
             ->getQuery()
             ->getOneOrNullResult();
     }

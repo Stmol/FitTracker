@@ -48,4 +48,4 @@ security:
                 authenticator: ft_api.apitoken_authenticator
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: "^/users/\w+/following", roles: ROLE_USER, methods: [POST, PATCH] }

@@ -11,7 +11,7 @@
     <tbody>
     {% for user in users %}
       <tr>
-        <td><a href="#">{{ user.username }}</a></td>
+        <td><a href="{{ path('users_show', { 'username': user.username }) }}">{{ user.username }}</a></td>
         <td>{{ user.createdAt|date() }}</td>
       </tr>
     {% endfor %}

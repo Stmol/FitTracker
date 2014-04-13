@@ -1,7 +1,11 @@
 parameters:
     ft_user.entity.user.class: FT\UserBundle\Entity\User
+    ft_user.entity.followers_link.class: FT\UserBundle\Entity\FollowersLink
 
     ft_user.manager.user.class: FT\UserBundle\Manager\UserManager
+    ft_user.manager.followers_link.class: FT\UserBundle\Manager\FollowersLinkManager
+
+    ft_user.type.user_hidden.class: FT\UserBundle\Form\Type\UserHiddenType
 
 services:
     ft_user.manager.user:
@@ -10,3 +14,16 @@ services:
             - @doctrine.orm.entity_manager
             - @security.encoder_factory
             - %ft_user.entity.user.class%
+
+    ft_user.manager.followers_link:
+        class: %ft_user.manager.followers_link.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %ft_user.entity.followers_link.class%
+
+    ft_user.type.user_hidden:
+        class: %ft_user.type.user_hidden.class%
+        arguments:
+            - @ft_user.manager.user
+        tags:
+            - { name: form.type, alias: user_hidden }

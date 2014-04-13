@@ -10,7 +10,9 @@
 namespace FT\FrontBundle\Controller;
 
 use FT\FrontBundle\Service\Paginator;
+use FT\UserBundle\Entity\FollowersLink;
 use FT\UserBundle\Entity\User;
+use FT\UserBundle\Form\Type\FollowersLinkType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FT\UserBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,6 +51,8 @@ class UserController extends Controller
     }
 
     /**
+     * Signin
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -73,6 +77,8 @@ class UserController extends Controller
     }
 
     /**
+     * Signup
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function signupAction()
@@ -81,6 +87,135 @@ class UserController extends Controller
         $form = $this->createUserForm($user);
 
         return $this->render('FTFrontBundle:User:signup.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Show public user profile
+     *
+     * @param $username
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function showAction($username)
+    {
+        $user = $this->getUserManager()->findUserByUsername($username);
+
+        if (!$user instanceof User) {
+            throw $this->createNotFoundException();
+        }
+
+        $followersLink = $this->getFollowersLinkManager()
+            ->findFollowersLinkByFollowers($this->getUser(), $user);
+
+        if (!$followersLink instanceof FollowersLink) {
+            $followersLink = $this->getFollowersLinkManager()
+                ->createFollowersLink($this->getUser(), $user);
+
+            $form = $this->createFollowForm($followersLink);
+        } else {
+            switch ($followersLink->getStatus()) {
+                case FollowersLink::LINK_STATUS_ACCEPTED:
+                    $form = $this->createUnfollowForm($followersLink);
+                    break;
+                case FollowersLink::LINK_STATUS_REJECTED:
+                    $form = $this->createFollowForm($followersLink);
+                    break;
+                default:
+                    $form = $this->createUnfollowForm($followersLink);
+                    break;
+            }
+        }
+
+        $followers = $this->getFollowersLinkManager()
+            ->findFollowersLinksByTarget($user);
+
+        return $this->render('FTFrontBundle:User:show.html.twig', [
+            'user'      => $user,
+            'form'      => $form->createView(),
+            'followers' => $followers,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $username
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function followAction(Request $request, $username)
+    {
+        $target = $this->getUserManager()
+            ->findUserByUsername($username);
+
+        if (!$target instanceof User) {
+            throw $this->createNotFoundException();
+        }
+
+        // TODO (Stmol) Think about how it can be improved
+        if ($target === $this->getUser()) {
+            return $this->redirect($this->generateUrl('users_show', ['username' => $target->getUsername()]));
+        }
+
+        $followersLink = $this->getFollowersLinkManager()
+            ->findFollowersLinkByFollowers($this->getUser(), $target);
+
+        if (!$followersLink instanceof FollowersLink) {
+            $followersLink = $this->getFollowersLinkManager()
+                ->createFollowersLink($this->getUser(), $target);
+        }
+
+        $form = $this->createFollowForm($followersLink);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $this->getFollowersLinkManager()
+                ->changeStatusFollowersLink($followersLink, FollowersLink::LINK_STATUS_ACCEPTED);
+
+            return $this->redirect($this->generateUrl('users_show', ['username' => $target->getUsername()]));
+        }
+
+        return $this->render('FTFrontBundle:User:show.html.twig', [
+            'user' => $target,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $username
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function unfollowAction(Request $request, $username)
+    {
+        $target = $this->getUserManager()
+            ->findUserByUsername($username);
+
+        if (!$target instanceof User) {
+            throw $this->createNotFoundException();
+        }
+
+        $followersLink = $this->getFollowersLinkManager()
+            ->findFollowersLinkByFollowers($this->getUser(), $target);
+
+        if (!$followersLink instanceof FollowersLink) {
+            throw $this->createNotFoundException();
+        }
+
+        $form = $this->createUnfollowForm($followersLink);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $this->getFollowersLinkManager()
+                ->changeStatusFollowersLink($followersLink, FollowersLink::LINK_STATUS_REJECTED);
+
+            return $this->redirect($this->generateUrl('users_show', ['username' => $target->getUsername()]));
+        }
+
+        return $this->render('FTFrontBundle:User:show.html.twig', [
+            'user' => $target,
             'form' => $form->createView(),
         ]);
     }
@@ -131,10 +266,60 @@ class UserController extends Controller
     }
 
     /**
+     * @param FollowersLink $followersLink
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createFollowForm(FollowersLink $followersLink)
+    {
+        $form = $this->createForm(new FollowersLinkType(), $followersLink, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('users_follow', ['username' => $followersLink->getTarget()->getUsername()]),
+        ]);
+
+        $form
+            ->add('follow', 'submit', [
+                'label' => 'form.button.follow',
+                'attr'  => array('class' => 'btn btn-primary'),
+            ])
+        ;
+
+        return $form;
+    }
+
+    /**
+     * @param FollowersLink $followersLink
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createUnfollowForm(FollowersLink $followersLink)
+    {
+        $form = $this->createForm(new FollowersLinkType(), $followersLink, [
+            'method' => 'PATCH',
+            'action' => $this->generateUrl('users_unfollow', ['username' => $followersLink->getTarget()->getUsername()]),
+        ]);
+
+        $form
+            ->add('unfollow', 'submit', [
+                'label' => 'form.button.unfollow',
+                'attr'  => array('class' => 'btn btn-primary'),
+            ])
+        ;
+
+        return $form;
+    }
+
+    /**
      * @return \FT\UserBundle\Manager\UserManager
      */
     private function getUserManager()
     {
         return $this->get('ft_user.manager.user');
+    }
+
+    /**
+     * @return \FT\UserBundle\Manager\FollowersLinkManager
+     */
+    private function getFollowersLinkManager()
+    {
+        return $this->get('ft_user.manager.followers_link');
     }
 }

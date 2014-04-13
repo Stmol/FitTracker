@@ -1,3 +1,9 @@
+# Form
+form:
+    button:
+        follow: Подписаться
+        unfollow: Отписаться
+
 New: Добавить
 Сreate: Создать
 Edit: Редактировать
@@ -65,6 +71,7 @@ workout:
     exercises_edit:
         exercises_exist: Доступные упражнения
 
+# User view
 user:
     index:
         list:
@@ -84,6 +91,10 @@ user:
             password: Пароль
         signin: Войти
         remember_me: Запомнить меня
+    show:
+        not_found_caption: Пользователь не найден
+        follow: Подписаться
+        its_you: Это вы
 
 # Base view
 base:
@@ -93,6 +104,10 @@ base:
     sign_up: Регистрация
     sign_in: Вход
     sign_out: Выход
+
+# Errors
+exception:
+    not_found: Страница не найдена!
 
 # System
 "Bad credentials": Неправильное имя пользователя или пароль

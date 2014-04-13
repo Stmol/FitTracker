@@ -27,3 +27,21 @@ users_create:
     methods: [POST]
     defaults:
         _controller: "FTFrontBundle:User:create"
+
+users_follow:
+    path: /{username}/following
+    methods: [POST]
+    defaults:
+        _controller: "FTFrontBundle:User:follow"
+
+users_unfollow:
+    path: /{username}/following
+    methods: [PATCH]
+    defaults:
+        _controller: "FTFrontBundle:User:unfollow"
+
+users_show:
+    path: /{username}
+    methods: [GET]
+    defaults:
+        _controller: "FTFrontBundle:User:show"
