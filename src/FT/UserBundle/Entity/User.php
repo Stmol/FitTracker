@@ -9,8 +9,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as Unique;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use FT\ExerciseBundle\Entity\Exercise;
-use FT\WorkoutBundle\Entity\Workout;
+use FT\AppBundle\Entity\Exercise;
+use FT\AppBundle\Entity\Workout;
 
 /**
  * User
@@ -111,13 +111,13 @@ class User implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="\FT\ExerciseBundle\Entity\Exercise", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="\FT\AppBundle\Entity\Exercise", mappedBy="user")
      */
     private $exercises;
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="FT\WorkoutBundle\Entity\Workout", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="FT\AppBundle\Entity\Workout", mappedBy="user")
      */
     private $workouts;
 

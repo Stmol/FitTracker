@@ -7,7 +7,7 @@
  * Email: dev@stmol.me
  */
 
-namespace FT\ExerciseBundle\DataFixtures\ORM;
+namespace FT\AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\Doctrine;

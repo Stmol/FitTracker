@@ -1,18 +1,18 @@
 <?php
 
-namespace FT\ExerciseBundle\Entity;
+namespace FT\AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FT\UserBundle\Entity\User;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
-use FT\UserBundle\Entity\User;
 
 /**
  * Exercise
  *
  * @ORM\Table(name="exercises")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="FT\AppBundle\Entity\Repository\ExerciseRepository")
  *
  * @Serializer\ExclusionPolicy("all")
  */

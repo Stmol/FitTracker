@@ -7,11 +7,11 @@
  * Email: dev@stmol.me
  */
 
-namespace FT\ExerciseBundle\Manager;
+namespace FT\AppBundle\Service\Manager;
 
 use Doctrine\ORM\EntityManager;
-use FT\ExerciseBundle\Entity\Exercise;
-use FT\ExerciseBundle\Entity\ExerciseParameter;
+use FT\AppBundle\Entity\Exercise;
+use FT\AppBundle\Entity\ExerciseParameter;
 
 /**
  * Class ExerciseParameterManager

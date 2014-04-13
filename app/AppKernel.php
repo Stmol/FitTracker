@@ -20,8 +20,6 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FT\AppBundle\FTAppBundle(),
-            new FT\ExerciseBundle\FTExerciseBundle(),
-            new FT\WorkoutBundle\FTWorkoutBundle(),
             new FT\FrontBundle\FTFrontBundle(),
             new FT\ApiBundle\FTApiBundle(),
             new FT\UserBundle\FTUserBundle(),

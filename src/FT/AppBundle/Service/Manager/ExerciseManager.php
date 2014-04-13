@@ -7,11 +7,11 @@
  * Email: dev@stmol.me
  */
 
-namespace FT\ExerciseBundle\Manager;
+namespace FT\AppBundle\Service\Manager;
 
 use Doctrine\ORM\EntityManager;
-use FT\ExerciseBundle\Entity\Exercise;
-use FT\UserBundle\Entity\User;
+use FT\AppBundle\Entity\Exercise;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class ExerciseManager
@@ -26,7 +26,7 @@ class ExerciseManager
     protected $entityManager;
 
     /**
-     * @var \Doctrine\ORM\EntityRepository
+     * @var \FT\AppBundle\Entity\Repository\ExerciseRepository
      */
     protected $repository;
 
@@ -43,10 +43,10 @@ class ExerciseManager
     /**
      * Create new Exercise
      *
-     * @param  \FT\UserBundle\Entity\User $user
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user
      * @return Exercise
      */
-    public function createExercise(User $user = null)
+    public function createExercise(UserInterface $user = null)
     {
         $exercise = new Exercise();
 
@@ -84,6 +84,14 @@ class ExerciseManager
             ->setIsRemoved(true);
 
         $this->saveExercise($exercise);
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityRepository|\FT\AppBundle\Entity\Repository\ExerciseRepository
+     */
+    public function getExerciseRepository()
+    {
+        return $this->repository;
     }
 
     /**
@@ -134,5 +142,22 @@ class ExerciseManager
     public function findExercisesByIds()
     {
 
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param bool $isRemoved
+     * @return array
+     */
+    public function findExercisesByUser(UserInterface $user, $isRemoved = false)
+    {
+        $queryBuilder = $this->repository
+            ->getExerciseQueryBuilder($isRemoved);
+
+        return $queryBuilder
+            ->andWhere('e.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 }

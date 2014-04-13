@@ -1,12 +1,12 @@
 <?php
 
-namespace FT\ExerciseBundle\Form\Type;
+namespace FT\AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ExerciseType extends AbstractType
+class WorkoutType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,17 +16,16 @@ class ExerciseType extends AbstractType
     {
         $builder
             ->add('title', 'text', [
-                'label' => 'entity.exercise.property.title',
+                'label' => 'workout.title'
             ])
             ->add('brief', 'textarea', [
-                'label' => 'entity.exercise.property.brief',
+                'label' => 'workout.brief'
             ])
-            ->add('exerciseParameters', 'collection', [
-                'type'         => new ExerciseParameterType(),
-                'allow_add'    => true,
+            ->add('workoutSets', 'collection', [
+                'type'         => new WorkoutSetType(),
                 'allow_delete' => true,
+                'allow_add'    => true,
                 'by_reference' => false,
-                'label'        => 'entity.exercise.property.exercise_parameters',
             ])
         ;
     }
@@ -36,10 +35,10 @@ class ExerciseType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'FT\ExerciseBundle\Entity\Exercise',
-            'intention'  => 'exercise_type',
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'FT\AppBundle\Entity\Workout',
+            'intention'  => 'workout_type',
+        ]);
     }
 
     /**
@@ -47,6 +46,6 @@ class ExerciseType extends AbstractType
      */
     public function getName()
     {
-        return 'exercise';
+        return 'workout';
     }
 }

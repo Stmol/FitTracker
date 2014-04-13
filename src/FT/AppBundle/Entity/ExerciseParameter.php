@@ -1,6 +1,6 @@
 <?php
 
-namespace FT\ExerciseBundle\Entity;
+namespace FT\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -17,12 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ExerciseParameter
 {
     const
-        TYPE_WEIGHT   = 'weight',
-        TYPE_NUMBER   = 'quantity',
-        TYPE_TIME     = 'time',
-        TYPE_DISTANCE = 'distance'
-    ;
-
+        TYPE_WEIGHT = 'weight',
+        TYPE_NUMBER = 'quantity',
+        TYPE_TIME = 'time',
+        TYPE_DISTANCE = 'distance';
     /**
      * @var integer
      *
@@ -33,7 +31,6 @@ class ExerciseParameter
      * @Serializer\Expose
      */
     private $id;
-
     /**
      * @var string
      *
@@ -42,7 +39,6 @@ class ExerciseParameter
      * @Serializer\Expose
      */
     private $title;
-
     /**
      * @var string
      *
@@ -52,7 +48,6 @@ class ExerciseParameter
      * @Serializer\Expose
      */
     private $type;
-
     /**
      * @var boolean
      *
@@ -61,7 +56,6 @@ class ExerciseParameter
      * @Serializer\Expose
      */
     private $isRemoved;
-
     /**
      * @var \DateTime
      *
@@ -70,7 +64,6 @@ class ExerciseParameter
      * @Serializer\Expose
      */
     private $removedAt;
-
     /**
      * @var \DateTime
      *
@@ -79,7 +72,6 @@ class ExerciseParameter
      * @Serializer\Expose
      */
     private $createdAt;
-
     /**
      * @var Exercise
      *
@@ -96,6 +88,19 @@ class ExerciseParameter
     }
 
     /**
+     * @return array
+     */
+    public static function getTypeValues()
+    {
+        return [
+            self::TYPE_WEIGHT,
+            self::TYPE_NUMBER,
+            self::TYPE_TIME,
+            self::TYPE_DISTANCE,
+        ];
+    }
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -106,7 +111,7 @@ class ExerciseParameter
     /**
      * Set createdAt
      *
-     * @param  \DateTime         $createdAt
+     * @param  \DateTime $createdAt
      * @return ExerciseParameter
      */
     public function setCreatedAt($createdAt)
@@ -127,7 +132,7 @@ class ExerciseParameter
     /**
      * Set isRemoved
      *
-     * @param  boolean           $isRemoved
+     * @param  boolean $isRemoved
      * @return ExerciseParameter
      */
     public function setIsRemoved($isRemoved)
@@ -148,7 +153,7 @@ class ExerciseParameter
     /**
      * Set removedAt
      *
-     * @param  \DateTime         $removedAt
+     * @param  \DateTime $removedAt
      * @return ExerciseParameter
      */
     public function setRemovedAt($removedAt)
@@ -181,7 +186,7 @@ class ExerciseParameter
     /**
      * Set title
      *
-     * @param  string            $title
+     * @param  string $title
      * @return ExerciseParameter
      */
     public function setTitle($title)
@@ -215,19 +220,6 @@ class ExerciseParameter
     }
 
     /**
-     * @return array
-     */
-    public static function getTypeValues()
-    {
-        return [
-            self::TYPE_WEIGHT,
-            self::TYPE_NUMBER,
-            self::TYPE_TIME,
-            self::TYPE_DISTANCE,
-        ];
-    }
-
-    /**
      * Get exercise
      *
      * @return Exercise
@@ -240,7 +232,7 @@ class ExerciseParameter
     /**
      * Set exercise
      *
-     * @param  Exercise          $exercise
+     * @param  Exercise $exercise
      * @return ExerciseParameter
      */
     public function setExercise(Exercise $exercise = null)

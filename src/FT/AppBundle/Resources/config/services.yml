@@ -1,7 +1,43 @@
 parameters:
-#    ft_app.example.class: FT\AppBundle\Example
+    ft_app.entity.exercise.class:              FT\AppBundle\Entity\Exercise
+    ft_app.entity.exercise_parameter.class:    FT\AppBundle\Entity\ExerciseParameter
+    ft_app.entity.workout.class:               FT\AppBundle\Entity\Workout
+    ft_app.entity.workout_set.class:           FT\AppBundle\Entity\WorkoutSet
+    ft_app.entity.workout_set_parameter.class: FT\AppBundle\Entity\WorkoutSetParameter
+
+    ft_app.manager.exercise.class:              FT\AppBundle\Service\Manager\ExerciseManager
+    ft_app.manager.exercise_parameter.class:    FT\AppBundle\Service\Manager\ExerciseParameterManager
+    ft_app.manager.workout.class:               FT\AppBundle\Service\Manager\WorkoutManager
+    ft_app.manager.workout_set.class:           FT\AppBundle\Service\Manager\WorkoutSetManager
+    ft_app.manager.workout_set_parameter.class: FT\AppBundle\Service\Manager\WorkoutSetParameterManager
 
 services:
-#    ft_app.example:
-#        class: %ft_app.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ft_app.manager.exercise:
+        class: %ft_app.manager.exercise.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %ft_app.entity.exercise.class%
+
+    ft_app.manager.exercise_parameter:
+        class: %ft_app.manager.exercise_parameter.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %ft_app.entity.exercise_parameter.class%
+            
+    ft_app.manager.workout:
+        class: %ft_app.manager.workout.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %ft_app.entity.workout.class%
+
+    ft_app.manager.workout_set:
+        class: %ft_app.manager.workout_set.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %ft_app.entity.workout_set.class%
+
+    ft_app.manager.workout_set_parameter:
+        class: %ft_app.manager.workout_set_parameter.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - %ft_app.entity.workout_set_parameter.class%

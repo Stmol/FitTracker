@@ -1,0 +1,5 @@
+FT\AppBundle\Entity\Exercise:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true

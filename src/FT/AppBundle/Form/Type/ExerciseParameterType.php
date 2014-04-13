@@ -7,9 +7,9 @@
  * Email: dev@stmol.me
  */
 
-namespace FT\ExerciseBundle\Form\Type;
+namespace FT\AppBundle\Form\Type;
 
-use FT\ExerciseBundle\Entity\ExerciseParameter;
+use FT\AppBundle\Entity\ExerciseParameter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -50,7 +50,7 @@ class ExerciseParameterType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'FT\ExerciseBundle\Entity\ExerciseParameter',
+            'data_class' => 'FT\AppBundle\Entity\ExerciseParameter',
             'intention'  => 'exercise_parameter_type',
         ]);
     }
