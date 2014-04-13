@@ -1,24 +1,38 @@
-{% extends 'FTFrontBundle:Exercise:layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block content -%}
-  <h2>{{ exercise.title }}</h2>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h2>{{ exercise.title }}</h2>
 
-  <strong>{{ 'entity.exercise.property.created_at'|trans }}</strong>: {{ exercise.createdAt|date("d F Y") }}
+      <p class="text-muted">
+        <span>{{ exercise.createdAt|date("d F Y") }}</span>
+        {% if exercise.user %}
+          <a href="{{ path('users_show', { 'username': exercise.user.username }) }}">@{{ exercise.user.username }}</a>
+        {% endif %}
+      </p>
 
-  <p>{{ exercise.brief }}</p>
+      {% if exercise.brief %}
+        <p class="lead">{{ exercise.brief }}</p>
+      {% endif %}
 
-  {% if exercise.exerciseParameters|length > 0 %}
-    <h3>{{ 'exercise.show.parameters'|trans }}</h3>
-    <ul>
-      {% for parameter in exercise.exerciseParameters %}
-      <li>{{ parameter.title }} ({{ parameter.kind|trans }})</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-
-  <h3>{{ 'exercise.show.actions'|trans }}</h3>
-  <ul>
-    <li><a href="{{ path('exercises_edit', { 'id': exercise.id }) }}">{{ 'Edit'|trans }}</a></li>
-    <li>{{ form(delete_form) }}</li>
-  </ul>
+      {% if exercise.exerciseParameters|length > 0 %}
+        <div class="panel panel-primary">
+          <div class="panel-heading">{{ 'exercise.show.parameters.caption'|trans }}</div>
+          <table class="table table-striped">
+            <thead>
+            <th>{{ 'exercise.show.parameters.title'|trans }}</th>
+            <th>{{ 'exercise.show.parameters.type'|trans }}</th>
+            </thead>
+            {% for parameter in exercise.exerciseParameters %}
+              <tr>
+                <td>{{ parameter.title }}</td>
+                <td>{{ parameter.type|trans }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 {% endblock %}

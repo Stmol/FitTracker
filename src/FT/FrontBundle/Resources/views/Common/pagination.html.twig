@@ -8,7 +8,7 @@
   {% endif %}
 
   {% if (currentPage - 3) > 0 %}
-    <li><a href="#">...</a></li>
+    <li class="disabled"><a href="#">...</a></li>
   {% endif %}
   {% if (currentPage - 2) > 0 %}
     <li><a href="{{ currentPath }}?page={{ currentPage - 2 }}">{{ currentPage - 2 }}</a></li>
@@ -26,7 +26,7 @@
     <li><a href="{{ currentPath }}?page={{ currentPage + 2 }}">{{ currentPage + 2 }}</a></li>
   {% endif %}
   {% if (currentPage + 2) < totalPages %}
-    <li><a href="#">...</a></li>
+    <li class="disabled"><a href="#">...</a></li>
   {% endif %}
 
   {% if currentPage < totalPages %}

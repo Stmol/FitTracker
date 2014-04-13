@@ -49,3 +49,6 @@ security:
 
     access_control:
         - { path: "^/users/\w+/following", roles: ROLE_USER, methods: [POST, PATCH] }
+
+        - { path: "^/exercises/new", roles: ROLE_USER, methods: [GET] }
+        - { path: "^/exercises",     roles: ROLE_USER, methods: [POST] }

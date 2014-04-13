@@ -1,6 +1,10 @@
-ft_front_exercises:
-    resource: "@FTFrontBundle/Resources/config/routing/exercises.yml"
-    prefix: /exercises
+exercise:
+    resource: "@FTFrontBundle/Controller/ExerciseController.php"
+    type:     annotation
+
+user_exercise:
+    resource: "@FTFrontBundle/Controller/UserExerciseController.php"
+    type:     annotation
 
 ft_front_workouts:
     resource: "@FTFrontBundle/Resources/config/routing/workouts.yml"

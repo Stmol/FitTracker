@@ -27,7 +27,7 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li {% if app.request.get('_route') == 'exercises' %}class="active"{% endif %}>
-            <a href="{{ path('exercises') }}">{{ 'base.exercise_list'|trans }}</a></li>
+            <a href="{{ path('exercise_index') }}">{{ 'base.exercise_list'|trans }}</a></li>
           <li {% if app.request.get('_route') == 'workouts' %}class="active"{% endif %}>
             <a href="{{ path('workouts') }}">{{ 'base.workout_list'|trans }}</a></li>
           <li {% if app.request.get('_route') == 'users' %}class="active"{% endif %}>

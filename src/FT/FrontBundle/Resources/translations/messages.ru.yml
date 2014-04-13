@@ -3,6 +3,8 @@ form:
     button:
         follow: Подписаться
         unfollow: Отписаться
+        add: Добавить
+        delete: Удалить
 
 New: Добавить
 Сreate: Создать
@@ -26,7 +28,7 @@ exercise_parameter:
     kind: Тип
 
 # Global
-number: Количество
+quantity: Количество
 distance: Дистанция
 time: Время
 weight: Вес
@@ -51,12 +53,20 @@ entity:
 
 # Exercise views
 exercise:
-    layout:
-        list: Список упражнений
+    index:
+        caption: Упражнения
+        list:
+            title: Название
+            created_at: Добавлен
+            author: Автор
     show:
         actions: Действия
-        parameters: Параметры
+        parameters:
+            title: Название
+            type: Тип
+            caption: Параметры
     new:
+        caption: Новое упражнение
         add_parameter: Добавить параметр
     edit:
         add_parameter: Добавить параметр
@@ -95,6 +105,13 @@ user:
         not_found_caption: Пользователь не найден
         follow: Подписаться
         its_you: Это вы
+
+user_exercise:
+    index:
+        caption: Упражнения
+        add: Добавить упражнение
+    new:
+        caption: Новое упражнение
 
 # Base view
 base:

@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+  <div class="row">
+    <h3>{{ 'user_exercise.index.caption'|trans }}</h3>
+    <a href="{{ path('user_exercise_new', { 'username': user.username }) }}">{{ 'user_exercise.index.add'|trans }}</a>
+    {% for exercise in exercises %}
+      {{ exercise.title }}
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% macro widget_prototype(widget) %}
+  <div class="well well-sm">
+    {% for children in widget.vars.prototype.children %}
+      <div class="form-group">
+        {{ form_errors(children) }}
+        {{ form_widget(children, { 'attr': { 'class': 'form-control', 'placeholder': children.vars.label } }) }}
+      </div>
+    {% endfor %}
+    <a class="remove-parameter" href="#">{{ 'form.button.delete'|trans }}</a>
+  </div>
+{% endmacro %}
+
+{{ form_start(form, { 'attr': { 'novalidate': 'novalidate' } }) }}
+  <div class="form-group">
+    {{ form_errors(form.title) }}
+    {{ form_label(form.title) }}
+    {{ form_widget(form.title, { 'attr': { 'class': 'form-control' } }) }}
+  </div>
+
+  <div class="form-group">
+    {{ form_errors(form.brief) }}
+    {{ form_label(form.brief) }}
+    {{ form_widget(form.brief, { 'attr': { 'class': 'form-control', 'rows': 5 } }) }}
+  </div>
+
+  <div class="form-group">
+    {{ form_errors(form.exerciseParameters) }}
+    {{ form_label(form.exerciseParameters) }}
+    <div id="exercise-parameters" data-prototype="{{ _self.widget_prototype(form.exerciseParameters)|escape }}">
+      {% for widget in form.exerciseParameters.children %}
+        {{ _self.widget_prototype(widget) }}
+      {% endfor %}
+    </div>
+    <a id="add-parameter" href="#">{{ 'exercise.new.add_parameter'|trans }}</a>
+  </div>
+
+  {{ form_widget(form.add, { 'attr': { 'class': 'btn btn-primary' } }) }}
+{{ form_end(form) }}
