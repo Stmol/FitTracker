@@ -44,28 +44,6 @@ class ExerciseController extends Controller
     }
 
     /**
-     * @Routing\Route("/{id}", name="exercise_show")
-     * @Routing\Method("GET")
-     * @Routing\Template()
-     *
-     * @param $id
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return array
-     */
-    public function showAction($id)
-    {
-        $exercise = $this->getExerciseManager()->findExerciseById($id);
-
-        if (!$exercise instanceof Exercise) {
-            throw $this->createNotFoundException();
-        }
-
-        return [
-            'exercise' => $exercise,
-        ];
-    }
-
-    /**
      * @Routing\Route("/new", name="exercise_new")
      * @Routing\Method("GET")
      * @Routing\Template()
@@ -108,6 +86,28 @@ class ExerciseController extends Controller
 
         return [
             'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * @Routing\Route("/{id}", name="exercise_show")
+     * @Routing\Method("GET")
+     * @Routing\Template()
+     *
+     * @param $id
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return array
+     */
+    public function showAction($id)
+    {
+        $exercise = $this->getExerciseManager()->findExerciseById($id);
+
+        if (!$exercise instanceof Exercise) {
+            throw $this->createNotFoundException();
+        }
+
+        return [
+            'exercise' => $exercise,
         ];
     }
 
