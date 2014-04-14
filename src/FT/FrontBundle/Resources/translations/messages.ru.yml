@@ -110,6 +110,12 @@ user_exercise:
     index:
         caption: Упражнения
         add: Добавить упражнение
+        list:
+            title: Название
+            created_at: Добавлен
+            actions: Действия
+        actions:
+            edit: Изменить
     new:
         caption: Новое упражнение
 
@@ -121,6 +127,8 @@ base:
     sign_up: Регистрация
     sign_in: Вход
     sign_out: Выход
+    user:
+        exercises: Мои упражнения
 
 # Errors
 exception:

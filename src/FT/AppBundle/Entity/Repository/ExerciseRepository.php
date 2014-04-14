@@ -34,4 +34,20 @@ class ExerciseRepository extends EntityRepository
 
         return $queryBuilder;
     }
+
+    /**
+     * @param $user
+     * @param bool $isRemoved
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getExerciseQBByUser($user, $isRemoved = false)
+    {
+        $queryBuilder = $this->getExerciseQueryBuilder($isRemoved);
+
+        $queryBuilder
+            ->andWhere('e.user = :user')
+            ->setParameter('user', $user);
+
+        return $queryBuilder;
+    }
 }

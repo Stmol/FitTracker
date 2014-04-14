@@ -1,11 +1,31 @@
 {% extends "::base.html.twig" %}
 
-{% block content %}
+{% block content -%}
   <div class="row">
-    <h3>{{ 'user_exercise.index.caption'|trans }}</h3>
-    <a href="{{ path('user_exercise_new', { 'username': user.username }) }}">{{ 'user_exercise.index.add'|trans }}</a>
-    {% for exercise in exercises %}
-      {{ exercise.title }}
-    {% endfor %}
+    <div class="col-md-12">
+      <h3>{{ 'user_exercise.index.caption'|trans }}</h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>{{ 'user_exercise.index.list.title'|trans }}</th>
+          <th>{{ 'user_exercise.index.list.created_at'|trans }}</th>
+          <th>{{ 'user_exercise.index.list.actions'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for exercise in exercises %}
+          <tr>
+            <td><a href="{{ path('exercise_show', { 'id': exercise.id }) }}">{{ exercise.title }}</a></td>
+            <td>{{ exercise.createdAt|date("d F Y") }}</td>
+            <td>{{ 'user_exercise.index.actions.edit'|trans }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+      {% if exercises|length > 0 and paginator.totalPages > 1 %}
+        {{ include('FTFrontBundle:Common:pagination.html.twig', { 'paginator': paginator }) }}
+      {% endif %}
+    </div>
   </div>
 {% endblock %}

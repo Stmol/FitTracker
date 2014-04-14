@@ -2,6 +2,7 @@
 
 namespace FT\FrontBundle\Controller;
 
+use FT\FrontBundle\Service\Paginator;
 use FT\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as Routing;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,12 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserExerciseController extends Controller
 {
+    const EXERCISE_PER_PAGE = 20;
+
     /**
-     * @Routing\Route("/exercises", name="user_exercises")
+     * @Routing\Route("/exercises", name="user_exercise_index")
      * @Routing\Method("GET")
      * @Routing\Template()
      */
-    public function indexAction($username)
+    public function indexAction(Request $request, $username)
     {
         $user = $this->getUserManager()->findUserByUsername($username);
 
@@ -29,9 +32,16 @@ class UserExerciseController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $exercises = $this->getExerciseManager()->findExercisesByUser($user);
+        $paginator = new Paginator();
+
+        $exercises = $paginator->paginate(
+            $this->getExerciseManager()->getExerciseRepository()->getExerciseQBByUser($user),
+            $request->query->get('page', 1),
+            self::EXERCISE_PER_PAGE
+        );
 
         return [
+            'paginator' => $paginator,
             'exercises' => $exercises,
             'user'      => $user,
         ];

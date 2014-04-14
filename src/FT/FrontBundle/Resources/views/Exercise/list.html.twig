@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>{{ 'exercise.index.list.title'|trans }}</th>
+    <th>{{ 'exercise.index.list.created_at'|trans }}</th>
+    <th>{{ 'exercise.index.list.author'|trans }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for exercise in exercises %}
+    <tr>
+      <td><a href="{{ path('exercise_show', { 'id': exercise.id }) }}">{{ exercise.title }}</a></td>
+      <td>{{ exercise.createdAt|date("d F Y") }}</td>
+      <td>
+        {{ exercise.user.username|default('FitTracker') }}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

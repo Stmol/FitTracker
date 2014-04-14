@@ -1,31 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block content -%}
-  {{ parent() }}
-
-  <div id="page">
-    {{ form_start(form, { 'attr': { 'novalidate': 'novalidate' } }) }}
-
-    <div>
-      {{ form_errors(form.title) }}
-      {{ form_label(form.title) }}
-      {{ form_widget(form.title) }}
+  <div id="page" class="row">
+    <div class="col-md-8 col-md-offset-2">
+      {#{{ include('FTFrontBundle:Exercise:form.html.twig', { 'form': form }) }}#}
     </div>
-
-    <div>
-      {{ form_errors(form.brief) }}
-      {{ form_label(form.brief) }}
-      {{ form_widget(form.brief) }}
-    </div>
-
-    <div>
-      {{ form_errors(form.exerciseParameters) }}
-      {{ form_label(form.exerciseParameters) }}
-      {{ form_widget(form.exerciseParameters, { 'id': 'exercise_params' }) }}
-      <a id="add-param" href="#">{{ 'exercise.edit.add_parameter'|trans }}</a>
-    </div>
-
-    {{ form_end(form) }}
   </div>
 {% endblock %}
 

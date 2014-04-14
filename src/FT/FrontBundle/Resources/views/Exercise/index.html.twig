@@ -4,26 +4,7 @@
   <div class="row">
     <div class="col-md-12">
       <h3>{{ 'exercise.index.caption'|trans }}</h3>
-      <table class="table">
-        <thead>
-        <tr>
-          <th>{{ 'exercise.index.list.title'|trans }}</th>
-          <th>{{ 'exercise.index.list.created_at'|trans }}</th>
-          <th>{{ 'exercise.index.list.author'|trans }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for exercise in exercises %}
-          <tr>
-            <td><a href="{{ path('exercise_show', { 'id': exercise.id }) }}">{{ exercise.title }}</a></td>
-            <td>{{ exercise.createdAt|date("d F Y") }}</td>
-            <td>
-              {{ exercise.user.username|default('FitTracker') }}
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      {{ include('FTFrontBundle:Exercise:list.html.twig', { 'exercises': exercises }) }}
 
       {% if exercises|length > 0 and paginator.totalPages > 1 %}
         {{ include('FTFrontBundle:Common:pagination.html.twig', { 'paginator': paginator }) }}

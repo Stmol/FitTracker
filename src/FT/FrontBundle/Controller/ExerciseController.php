@@ -81,6 +81,37 @@ class ExerciseController extends Controller
     }
 
     /**
+     * @Routing\Route("/{id}/edit", name="exercise_edit")
+     * @Routing\Method("GET")
+     * @Routing\Template()
+     *
+     * @param $id
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return array
+     */
+    public function editAction($id)
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof UserInterface) {
+            throw new AccessDeniedException;
+        }
+
+        $exercise = $this->getExerciseManager()->findExerciseById($id);
+
+        if (!$exercise instanceof Exercise) {
+            throw $this->createNotFoundException();
+        }
+
+        $form = $this->createExerciseForm($exercise);
+
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
      * @Routing\Route("/", name="exercise_create")
      * @Routing\Method("POST")
      *

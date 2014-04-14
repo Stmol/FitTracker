@@ -40,7 +40,11 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <b
                     class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Start training</a></li>
+                <li>
+                  <a href="{{ path('user_exercise_index', { 'username': app.user.username }) }}">
+                    {{ 'base.user.exercises'|trans }}
+                  </a>
+                </li>
                 <li class="divider"></li>
                 <li><a href="{{ path('users_sign_out') }}">{{ 'base.sign_out'|trans }}</a></li>
               </ul>
